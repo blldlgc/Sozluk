@@ -21,6 +21,7 @@ namespace Sozluk
             builder.Services.AddTransient<Helpers.FirebaseAuthHelper>();
             builder.Services.AddTransient<Pages.LoadingPage>();
             builder.Services.AddTransient<Pages.LoginPage>();
+            builder.Services.AddSingleton<Database.LocalDatabaseService>();
 
             return builder.Build();
         }

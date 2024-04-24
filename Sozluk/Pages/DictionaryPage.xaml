@@ -3,17 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sozluk.Pages.DictionaryPage"
              Title="DictionaryPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Dictionary "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            Padding="20,20,20,20"/>
-        
-        <Button 
-            Text="Add Word"
-            Clicked="AddWordBtnClicked"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <FlexLayout>
+        <VerticalStackLayout  Padding=" 10" FlexLayout.Basis="425">
+            <Label 
+                Text="Dictionary "
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" 
+                Padding="20,20,20,20"/>
+
+            <Button 
+                Text="Add Word"
+                Clicked="AddWordBtnClicked"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+
+        <ListView x:Name="WordsListView"
+                  VerticalOptions="FillAndExpand"
+                  HasUnevenRows="True"
+                  ItemTapped="WordsListView_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <VerticalStackLayout Padding="10">
+                            <Label Text="{Binding Word}" FontSize="20" />
+                            <Label Text="{Binding Meaning}" FontSize="15" />
+                        </VerticalStackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </FlexLayout>
 </ContentPage>

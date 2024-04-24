@@ -25,7 +25,7 @@ public partial class WordAddingPage : ContentPage
             {
                 Title = "Please pick a photo"
             });
-            if (result != null)s
+            if (result != null)
             {
                 // Seçilen fotoğrafın işlenmesi
                 var stream = await result.OpenReadAsync();

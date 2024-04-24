@@ -8,13 +8,18 @@ using SQLite;
 
 namespace Sozluk.Models
 {
+    [Table("Dictionary")]
     public class Dictionary
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement, Column("id")]
         public int Id { get; set; }
+        [Column("word")]
         public string Word { get; set; }
+        [Column("meaning")]
         public string Meaning { get; set; }
+        [Column("example")]
         public string Example { get; set; }
+        [Column("pictureLink")]
         public string PictureLink { get; set; }
     }
 }
