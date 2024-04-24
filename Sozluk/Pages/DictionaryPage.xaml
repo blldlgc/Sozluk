@@ -7,7 +7,9 @@
         <Label 
             Text="Dictionary "
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center" 
+            Padding="20,20,20,20"/>
+        
         <Button 
             Text="Add Word"
             Clicked="AddWordBtnClicked"

@@ -30,24 +30,26 @@
         
     <TabBar>
         <ShellContent
-        Title="MainPage"
-        ContentTemplate="{DataTemplate pages:MainPage}"
-        Route="MainPage" />
+            Title="MainPage"
+            ContentTemplate="{DataTemplate pages:MainPage}"
+            Route="MainPage" />
 
         <ShellContent
-        Title="DictionaryPage"
-        ContentTemplate="{DataTemplate pages:DictionaryPage}"
-        Route="DictionaryPage" />
+            Title="DictionaryPage"
+            ContentTemplate="{DataTemplate pages:DictionaryPage}"
+            Route="DictionaryPage" />
 
         <ShellContent
-        Title="Profile"
-        ContentTemplate="{DataTemplate pages:ProfilePage}"
-        Route="ProfilePage" />
+            Title="Stats"
+            ContentTemplate="{DataTemplate pages:StatsPage}"
+            Route="StatsPage" />
 
         <ShellContent
-        Title="Stats"
-        ContentTemplate="{DataTemplate pages:StatsPage}"
-        Route="StatsPage" />
+            Title="Profile"
+            ContentTemplate="{DataTemplate pages:ProfilePage}"
+            Route="ProfilePage" />
+
+        
 
     </TabBar>
 

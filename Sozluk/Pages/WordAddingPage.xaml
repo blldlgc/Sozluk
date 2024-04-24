@@ -3,15 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sozluk.Pages.WordAddingPage"
              Title="WordAddingPage">
-    <VerticalStackLayout>
+    <VerticalStackLayout Spacing="10">
         <Label 
             Text="Kelime Ekleme Sayfası"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
             Padding="20,20,20,20"/>
 
+        <Entry
+            Text="{Binding Word}"
+            MaximumWidthRequest="300"
+            Placeholder="Kelimeyi giriniz"
+            TextColor="Black"
+            Keyboard="Default"
+            InputTransparent="False" />
+
+        <Entry
+            Text="{Binding Meaning}"
+            MaximumWidthRequest="300"
+            Placeholder="Anlamını giriniz"
+            TextColor="Black"
+            Keyboard="Default"
+            InputTransparent="False" />
+
+        <Entry
+            Text="{Binding Example}"
+            MaximumWidthRequest="300"
+            Placeholder="Cümle giriniiz"
+            TextColor="Black"
+            Keyboard="Default"
+            InputTransparent="False" />
+
         <Button 
+            MaximumWidthRequest="300"
+            Text="Add Photo"
+            Clicked="PhotoBtnClicked"
+            Padding="10,10,10,10"/>
+
+        <Image x:Name="selectedImage" Aspect="AspectFit" MaximumWidthRequest="250" MaximumHeightRequest="250" />
+
+        <Button 
+            MaximumWidthRequest="300"
+            Text="Save"
+            Clicked="SaveBtnClicked"
+            Padding="10,10,10,10"/>
+
+        <Button 
+            MaximumWidthRequest="300"
             Text="Back Page"
-            Clicked="BackBtnClicked" />
+            Clicked="BackBtnClicked"
+            Padding="10,10,10,10"/>
     </VerticalStackLayout>
 </ContentPage>
