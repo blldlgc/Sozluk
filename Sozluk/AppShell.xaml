@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Sozluk.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Sozluk"
+    xmlns:pages="clr-namespace:Sozluk.Pages"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Sozluk">
+
+    <ShellContent
+        Title="Loading"
+        ContentTemplate="{DataTemplate pages:LoadingPage}"
+        Route="LoadingPage"
+        Shell.FlyoutItemIsVisible="False"/>
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate pages:LoginPage}"
+        Route="LoginPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
+
+    <ShellContent
+        Title="Word Adding Page"
+        ContentTemplate="{DataTemplate pages:WordAddingPage}"
+        Route="WordAddingPage"
+        Shell.FlyoutItemIsVisible="False"
+        />
+        
+    <TabBar>
+        <ShellContent
+        Title="MainPage"
+        ContentTemplate="{DataTemplate pages:MainPage}"
+        Route="MainPage" />
+
+        <ShellContent
+        Title="DictionaryPage"
+        ContentTemplate="{DataTemplate pages:DictionaryPage}"
+        Route="DictionaryPage" />
+
+        <ShellContent
+        Title="Profile"
+        ContentTemplate="{DataTemplate pages:ProfilePage}"
+        Route="ProfilePage" />
+
+        <ShellContent
+        Title="Stats"
+        ContentTemplate="{DataTemplate pages:StatsPage}"
+        Route="StatsPage" />
+
+    </TabBar>
+
+</Shell>

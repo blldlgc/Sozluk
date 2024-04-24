@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sozluk.Pages.LoginPage"
+             Title="LoginPage">
+
+    <Grid>
+        <VerticalStackLayout x:Name="stackMain"
+        Padding="30,0"
+        Spacing="25">
+            <Image
+                Source="app_icon.jpeg"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" />
+
+            <Label
+                Text="Sözlük APP"
+
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="Sözlük uygulamasına hoşgeldiniz, giriş yapınız veya üye olunuz."
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+
+            <Button
+                MaximumWidthRequest="300"
+                x:Name="Login"
+                Text="Giriş Yap" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="ButtonClickedLoginStack"
+                HorizontalOptions="Fill" />
+
+            <Button
+                MaximumWidthRequest="300"
+                x:Name="signinPage"
+                Text="Üye Ol" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="ButtonClickedSignUpStack"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout x:Name="stackLogin"
+            IsVisible="false"
+            Padding="30,0"
+            Spacing="25">
+            <Image
+            Source="app_icon.jpeg"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" VerticalOptions="FillAndExpand" />
+
+            <Label
+                Text="Giriş Yap"
+ 
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Entry
+                Text="{Binding Email}"
+                MaximumWidthRequest="300"
+                x:Name="email"
+                Placeholder="Email hesabınızı giriniz"
+                Keyboard="Email"
+                SemanticProperties.Hint="Enter your username" />
+
+
+            <Entry
+                Text="{Binding Password}"
+                MaximumWidthRequest="300"
+                x:Name="password"
+                Placeholder="Şifrenizi giriniz"
+                TextColor="Black"
+                Keyboard="Default"
+                SemanticProperties.Hint="Enter your username"  IsPassword="True" InputTransparent="False" />
+
+            <Button
+                MaximumWidthRequest="300"
+                x:Name="login"
+                Text="Giriş Yap" 
+       
+                Clicked="ButtonClickedLogin"
+                HorizontalOptions="Fill" />
+
+            <Button
+                MaximumWidthRequest="300"
+                x:Name="signinPage2"
+                Text="Hesap Oluştur" 
+                BackgroundColor="Transparent"
+                TextColor="Black"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="ButtonClickedSignUpStack"
+                HorizontalOptions="Fill"/>
+
+
+        </VerticalStackLayout>
+
+        <VerticalStackLayout x:Name="stackSignUp"
+            IsVisible="false"
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="app_icon.jpeg"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" />
+
+            <Label
+                Text="Üye ol"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+
+            <Entry
+                Text="{Binding Username}"
+                MaximumWidthRequest="300"
+                x:Name="username2"
+                Placeholder="Kullanıcı adınızı giriniz" 
+                Keyboard="Default"
+                SemanticProperties.Hint="Enter your username" />
+
+            <Entry
+                Text="{Binding Email}"
+                MaximumWidthRequest="300"
+                x:Name="email2"
+                Placeholder="e-posta adresinizi giriniz" 
+                Keyboard="Email"
+                SemanticProperties.Hint="Enter your username" />
+
+            <Entry
+                Text="{Binding Password}"
+                MaximumWidthRequest="300"
+                x:Name="password2"
+                Placeholder="Şifrenizi giriniz" 
+                Keyboard="Default"
+                SemanticProperties.Hint="Enter your username" />
+
+
+            <Button
+        MaximumWidthRequest="300"
+        x:Name="signin"
+        Text="Üye Ol" 
+        SemanticProperties.Hint="Counts the number of times you click"
+        Clicked="ButtonClickedSignIn"
+        HorizontalOptions="Fill" />
+
+            <Button
+        MaximumWidthRequest="300"
+        x:Name="loginPage"
+        Text="Hesabınız var mı? Giriş Yap" 
+        BackgroundColor="Transparent"
+        TextColor="Black"
+        SemanticProperties.Hint="Counts the number of times you click"
+        Clicked="ButtonClickedLoginStack"
+        HorizontalOptions="Fill" />
+
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>
