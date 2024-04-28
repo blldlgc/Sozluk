@@ -15,6 +15,7 @@ namespace Sozluk
             Routing.RegisterRoute(nameof(StatsPage), typeof(StatsPage));
             Routing.RegisterRoute(nameof(WordAddingPage), typeof(WordAddingPage));
             Routing.RegisterRoute(nameof(DictionaryPage), typeof(DictionaryPage));
+            
 
         }
     }

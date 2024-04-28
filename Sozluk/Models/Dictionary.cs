@@ -8,7 +8,7 @@ using SQLite;
 
 namespace Sozluk.Models
 {
-    [Table("Dictionary")]
+    [Table("dictionary")]
     public class Dictionary
     {
         [PrimaryKey, AutoIncrement, Column("id")]
@@ -20,6 +20,6 @@ namespace Sozluk.Models
         [Column("example")]
         public string Example { get; set; }
         [Column("pictureLink")]
-        public string PictureLink { get; set; }
+        public string Image { get; set; }
     }
 }

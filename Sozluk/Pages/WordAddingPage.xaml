@@ -11,7 +11,8 @@
             Padding="20,20,20,20"/>
 
         <Entry
-            Text="{Binding Word}"
+            x:Name="nameEntryField"
+            Text="{Binding WordBinding}"
             MaximumWidthRequest="300"
             Placeholder="Kelimeyi giriniz"
             TextColor="Black"
@@ -19,7 +20,8 @@
             InputTransparent="False" />
 
         <Entry
-            Text="{Binding Meaning}"
+            x:Name="meaningEntryField"
+            Text="{Binding MeaningBinding}"
             MaximumWidthRequest="300"
             Placeholder="Anlamını giriniz"
             TextColor="Black"
@@ -27,7 +29,8 @@
             InputTransparent="False" />
 
         <Entry
-            Text="{Binding Example}"
+            x:Name="exampleEntryField"
+            Text="{Binding ExampleBinding}"
             MaximumWidthRequest="300"
             Placeholder="Cümle giriniiz"
             TextColor="Black"
