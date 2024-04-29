@@ -31,6 +31,14 @@ public partial class LoginPage : ContentPage
         stackSignUp.IsVisible = true;
     }
 
+    private async void ResetPasswordBtnClicked(object sender, EventArgs e)
+    {
+        //await App.Current.MainPage.Navigation.PushModalAsync(new ResetPasswordPage());
+        //await App.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResetPasswordPage()));
+        await Navigation.PushAsync(new NavigationPage(new ResetPasswordPage()));
+
+    }
+
     private async void ButtonClickedSignIn(object sender, EventArgs e)
     {
 

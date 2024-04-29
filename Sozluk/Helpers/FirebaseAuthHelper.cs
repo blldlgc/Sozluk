@@ -29,7 +29,7 @@ public class FirebaseAuthHelper
         try
         {
             var response = await client.CreateUserWithEmailAndPasswordAsync(email, password, username);
-
+            
             return response?.User?.Uid?.ToString();
         }
         catch (Exception e)
@@ -90,9 +90,20 @@ public class FirebaseAuthHelper
        
     }
 
-    
+    public async Task<string?> ResetPassword(string email)
+    {
+        try
+        {
+            await client.ResetEmailPasswordAsync(email);
+            return null; // No error occurred
+        }
+        catch (Exception e)
+        {
+            return e.Message; // Return the error message
+        }
+    }
 
 
-   
+
 }
 

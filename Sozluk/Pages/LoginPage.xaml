@@ -95,6 +95,15 @@
                 Clicked="ButtonClickedSignUpStack"
                 HorizontalOptions="Fill"/>
 
+            <Button
+                MaximumWidthRequest="300"
+                x:Name="signinPage3"
+                Text="Şifremi Unuttum" 
+                BackgroundColor="Transparent"
+                TextColor="Black"
+                Clicked="ResetPasswordBtnClicked"
+                HorizontalOptions="Fill"/>
+
 
         </VerticalStackLayout>
 
@@ -105,13 +114,12 @@
             <Image
                 Source="app_icon.jpeg"
                 HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
+                Aspect="AspectFit" />
 
             <Label
                 Text="Üye ol"
                 Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+                 />
 
 
             <Entry
@@ -120,7 +128,7 @@
                 x:Name="username2"
                 Placeholder="Kullanıcı adınızı giriniz" 
                 Keyboard="Default"
-                SemanticProperties.Hint="Enter your username" />
+                />
 
             <Entry
                 Text="{Binding Email}"
@@ -128,22 +136,20 @@
                 x:Name="email2"
                 Placeholder="e-posta adresinizi giriniz" 
                 Keyboard="Email"
-                SemanticProperties.Hint="Enter your username" />
+                 />
 
             <Entry
                 Text="{Binding Password}"
                 MaximumWidthRequest="300"
                 x:Name="password2"
                 Placeholder="Şifrenizi giriniz" 
-                Keyboard="Default"
-                SemanticProperties.Hint="Enter your username" />
+                Keyboard="Default"/>
 
 
             <Button
         MaximumWidthRequest="300"
         x:Name="signin"
         Text="Üye Ol" 
-        SemanticProperties.Hint="Counts the number of times you click"
         Clicked="ButtonClickedSignIn"
         HorizontalOptions="Fill" />
 
@@ -153,11 +159,13 @@
         Text="Hesabınız var mı? Giriş Yap" 
         BackgroundColor="Transparent"
         TextColor="Black"
-        SemanticProperties.Hint="Counts the number of times you click"
         Clicked="ButtonClickedLoginStack"
         HorizontalOptions="Fill" />
 
         </VerticalStackLayout>
+
+        
     </Grid>
+    
 
 </ContentPage>
