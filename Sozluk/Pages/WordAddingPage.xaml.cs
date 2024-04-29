@@ -9,6 +9,7 @@ public partial class WordAddingPage : ContentPage
     private readonly Database.LocalDatabaseService _localDatabaseService;
     private int _editId;
     private byte[] photoData;
+    private string imagePath;
 
 
     public WordAddingPage(LocalDatabaseService dbService)
@@ -42,7 +43,7 @@ public partial class WordAddingPage : ContentPage
                     Word = nameEntryField.Text,
                     Meaning = meaningEntryField.Text,
                     Example = exampleEntryField.Text,
-                    //Image = photoData
+                    Image = imagePath
                 });
             }
             else
@@ -54,7 +55,7 @@ public partial class WordAddingPage : ContentPage
                     Word = nameEntryField.Text,
                     Meaning = meaningEntryField.Text,
                     Example = exampleEntryField.Text,
-                    //Image = photoData
+                    Image = imagePath
                 });
 
                 _editId = 0;
@@ -88,6 +89,8 @@ public partial class WordAddingPage : ContentPage
                     // Burada fotoğraf verilerini kullanabilirsiniz
                     var imageSource = ImageSource.FromStream(() => new MemoryStream(photoData));
                     selectedImage.Source = imageSource;
+
+                    imagePath = Helpers.FileHelper.SaveImageToFileSystem(photoData);
                 }
             }
         }

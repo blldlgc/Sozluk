@@ -10,6 +10,7 @@
             HorizontalOptions="Center" />
         <Button 
             Text="Signout"
-            Clicked="Signout_Clicked" />
+            Clicked="Signout_Clicked"
+            MaximumWidthRequest="300"/>
     </VerticalStackLayout>
 </ContentPage>
