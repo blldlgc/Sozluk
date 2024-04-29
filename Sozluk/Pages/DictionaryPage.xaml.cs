@@ -28,13 +28,17 @@ public partial class DictionaryPage : ContentPage
 	private async void WordsListView_ItemTapped(object sender, ItemTappedEventArgs e)
 	{
         var item = (Dictionary)e.Item;
-        var action = await DisplayActionSheet("Delete", "Cancel", null, "Delete");
+        var action = await DisplayActionSheet("Seçenekler", "İptal", null, "Detayları Görüntüle" ,"Sil");
 
         switch (action)
         {
-            case "Delete":
+            case "Sil":
                 await _localDatabaseService.Delete(item);
                 WordsListView.ItemsSource = await _localDatabaseService.GetDictionary();
+                break;
+            case "Detayları Görüntüle":
+                // Tıklanan öğenin detaylarını görüntülemek için detay sayfasına yönlendirme
+                await Navigation.PushAsync(new WordDetailPage(item));
                 break;
         }
     }

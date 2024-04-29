@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sozluk.Pages.WordDetailPage"
+             Title="WordDetailPage">
+    <StackLayout VerticalOptions="Start" Margin="20">
+        <Image x:Name="PictureImage" Aspect="AspectFit" MaximumHeightRequest="300"/>
+        <Label x:Name="WordLabel" FontSize="25" FontAttributes="Bold" HorizontalOptions="Center" Padding="10"/>
+        <Label x:Name="MeaningLabel" FontSize="20" HorizontalOptions="Center" Padding="10"/>
+        <Label x:Name="ExampleLabel" FontSize="15" HorizontalOptions="Center" Padding="10"/>
+    </StackLayout>
+</ContentPage>
