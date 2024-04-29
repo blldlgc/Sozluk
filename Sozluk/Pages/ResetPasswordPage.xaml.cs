@@ -19,6 +19,8 @@ public partial class ResetPasswordPage : ContentPage
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
-        await Navigation.PopAsync();
+        //await Navigation.GoBack();
+        
+        await App.Current.MainPage.Navigation.PushAsync(new NavigationPage(new LoginPage()));
     }
 }
