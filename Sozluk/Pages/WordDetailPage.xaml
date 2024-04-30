@@ -2,7 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sozluk.Pages.WordDetailPage"
-             Title="WordDetailPage">
+             Title="WordDetailPage"
+             Shell.BackgroundColor="Aqua">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="edit_icon.png" Text="Düzenle" Clicked="EditButtonClicked" />
+        <ToolbarItem IconImageSource="delete_icon.png" Text="Sil" Clicked="DeleteButtonClicked" />
+    </ContentPage.ToolbarItems>
     <StackLayout VerticalOptions="Start" Margin="20">
         <Image x:Name="PictureImage" Aspect="AspectFit" MaximumHeightRequest="300"/>
         <Label x:Name="WordLabel" FontSize="25" FontAttributes="Bold" HorizontalOptions="Center" Padding="10"/>

@@ -28,7 +28,9 @@ public partial class DictionaryPage : ContentPage
 	private async void WordsListView_ItemTapped(object sender, ItemTappedEventArgs e)
 	{
         var item = (Dictionary)e.Item;
-        var action = await DisplayActionSheet("Seçenekler", "İptal", null, "Detayları Görüntüle" ,"Sil");
+        await Navigation.PushAsync(new WordDetailPage(item));
+
+        /*var action = await DisplayActionSheet("Seçenekler", "İptal", null, "Detayları Görüntüle" ,"Sil");
 
         switch (action)
         {
@@ -40,6 +42,6 @@ public partial class DictionaryPage : ContentPage
                 // Tıklanan öğenin detaylarını görüntülemek için detay sayfasına yönlendirme
                 await Navigation.PushAsync(new WordDetailPage(item));
                 break;
-        }
+        }*/
     }
 }
