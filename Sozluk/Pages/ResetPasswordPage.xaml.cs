@@ -17,10 +17,5 @@ public partial class ResetPasswordPage : ContentPage
         await App.Current.MainPage.DisplayAlert("Gönderdiğimiz e-posta'daki link üzerinden şifre yenileme işleminizi tamamlayabiirsiniz", resetStatus?.GetStatusMessage(), "OK");
     }
 
-    private async void OnBackButtonClicked(object sender, EventArgs e)
-    {
-        //await Navigation.GoBack();
-        
-        await App.Current.MainPage.Navigation.PushAsync(new NavigationPage(new LoginPage()));
-    }
+    
 }

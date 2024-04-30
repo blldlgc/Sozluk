@@ -8,5 +8,7 @@
         <Label x:Name="WordLabel" FontSize="25" FontAttributes="Bold" HorizontalOptions="Center" Padding="10"/>
         <Label x:Name="MeaningLabel" FontSize="20" HorizontalOptions="Center" Padding="10"/>
         <Label x:Name="ExampleLabel" FontSize="15" HorizontalOptions="Center" Padding="10"/>
+        <Button x:Name="WordTTSButton" Text="Kelimenin Sesli Okunuşu" Clicked="WordTTSButton_Clicked" Margin="5,5,5,5" MaximumWidthRequest="300"/>
+        <Button x:Name="ExampleTTSButton" Text="Cümlenin Sesli Okunuşu" Clicked="ExampleTTSButton_Clicked" Margin="5,5,5,5" MaximumWidthRequest="300"/>
     </StackLayout>
 </ContentPage>

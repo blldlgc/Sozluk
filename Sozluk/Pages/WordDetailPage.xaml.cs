@@ -3,9 +3,13 @@ namespace Sozluk.Pages;
 
 public partial class WordDetailPage : ContentPage
 {
+    private readonly Dictionary _word;
+
     public WordDetailPage(Dictionary word)
     {
         InitializeComponent();
+
+        _word = word;
 
         // Sayfa başlığını belirle
         Title = "Word Detail";
@@ -21,5 +25,17 @@ public partial class WordDetailPage : ContentPage
             ExampleLabel.Text = "Örnek cümle: " + word.Example;
             PictureImage.Source = ImageSource.FromFile(word.Image);
         }
+    }
+
+    
+
+    private void WordTTSButton_Clicked(object sender, EventArgs e)
+    {
+        TextToSpeech.SpeakAsync(_word.Word);
+    }
+
+    private void ExampleTTSButton_Clicked(object sender, EventArgs e)
+    {
+        TextToSpeech.SpeakAsync(_word.Example);
     }
 }
