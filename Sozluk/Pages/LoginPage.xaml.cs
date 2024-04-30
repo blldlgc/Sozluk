@@ -20,12 +20,14 @@ public partial class LoginPage : ContentPage
 
     private void ButtonClickedLoginStack(object sender, EventArgs e)
     {
+        //Giriş yapma ekranını açar
         stackLogin.IsVisible = true;
         stackMain.IsVisible = false;
         stackSignUp.IsVisible = false;
     }
     private void ButtonClickedSignUpStack(object sender, EventArgs e)
     {
+        //Kayıt olma ekranını açar
         stackLogin.IsVisible = false;
         stackMain.IsVisible = false;
         stackSignUp.IsVisible = true;
@@ -33,25 +35,24 @@ public partial class LoginPage : ContentPage
 
     private async void ResetPasswordBtnClicked(object sender, EventArgs e)
     {
-        //await App.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResetPasswordPage()));
-        //await Navigation.PushAsync(new NavigationPage(new ResetPasswordPage()));
+        //Şifremi unuttum sayfasını açar
         await Navigation.PushAsync(new ResetPasswordPage());
 
     }
 
     private async void ButtonClickedSignIn(object sender, EventArgs e)
     {
-
+        //Kayıt olma işlemi için kullanıcı adı, email ve şifre bilgilerini alır ve firebase üzerinde kayıt işlemi yapar
         FirebaseAuthHelper helper = new FirebaseAuthHelper();
 
         var auth = await helper.Create(Username, Email, Password);
 
-        await App.Current.MainPage.DisplayAlert("Login", auth?.GetStatusMessage(), "OK");
+        await App.Current.MainPage.DisplayAlert("Kayıt Ol", auth?.GetStatusMessage(), "OK");
     }
 
     private async void ButtonClickedLogin(object sender, EventArgs e)
     {
-        
+        //Giriş yapma işlemi için email ve şifre bilgilerini alır ve firebase üzerinde giriş işlemi yapar
         FirebaseAuthHelper helper = new FirebaseAuthHelper();
 
         var auth = await helper.Login(Email, Password);
@@ -62,7 +63,7 @@ public partial class LoginPage : ContentPage
         }
         else 
         {
-            await App.Current.MainPage.DisplayAlert("Login", auth?.GetStatusMessage(), "OK");
+            await App.Current.MainPage.DisplayAlert("Giriş Yap", auth?.GetStatusMessage(), "OK");
         }
         
 

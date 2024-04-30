@@ -14,6 +14,7 @@ public class FirebaseAuthHelper
 
     private static FirebaseAuthConfig _config = new FirebaseAuthConfig()
     {
+        // Firebase Console ile uygulamayı bağlama işlemi
         ApiKey = "AIzaSyAbW7ocZLO9SziPuJljvurRnyU2fNLkjns",
         AuthDomain = "sozluk-61e07.firebaseapp.com",
         Providers = new FirebaseAuthProvider[]
@@ -26,6 +27,7 @@ public class FirebaseAuthHelper
 
     public async Task<String?>? Create(string username, string email, string password)
     {
+        // Firebase üzerinde kullanıcı oluşturma işlemi
         try
         {
             var response = await client.CreateUserWithEmailAndPasswordAsync(email, password, username);
@@ -40,6 +42,7 @@ public class FirebaseAuthHelper
 
     public async Task<String?>? Login(string email, string password)
     {
+        // Firebase üzerinde kullanıcı girişi işlemi
         try
         {
             var response = await client.SignInWithEmailAndPasswordAsync(email, password);

@@ -27,12 +27,13 @@ public partial class WordAddingPage : ContentPage
 
 	private async void BackBtnClicked(object sender, EventArgs e)
 	{
-        
+        // Geri butonuna basıldığında sayfayı kapatır
         await App.Current.MainPage.Navigation.PopModalAsync();
     }
 
     private async void SaveBtnClicked(object sender, EventArgs e)
     {
+        // Kaydet butonuna basıldığında kelimeyi veritabanına ekler
         try
         {
             if (_editId == 0)
@@ -63,6 +64,7 @@ public partial class WordAddingPage : ContentPage
         }
         catch (Exception ex)
         {
+            // Hata durumunda hata mesajını gösterir
             await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
         }
         await App.Current.MainPage.Navigation.PopModalAsync();

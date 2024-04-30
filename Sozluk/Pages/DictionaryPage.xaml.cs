@@ -5,7 +5,8 @@ namespace Sozluk.Pages;
 
 public partial class DictionaryPage : ContentPage
 {
-	private readonly Database.LocalDatabaseService _localDatabaseService = new Database.LocalDatabaseService();
+	private readonly LocalDatabaseService _localDatabaseService = new LocalDatabaseService(); 
+	//Veritabanı işlemleri için LocalDatabaseService sınıfından nesne oluşturulur
 	
     public DictionaryPage()
     {
@@ -15,6 +16,7 @@ public partial class DictionaryPage : ContentPage
 
 	protected override async void OnAppearing()
 	{
+		//sayfa açıldığında veritabanından kelimeleri çeker ve listview'e yükler
 		base.OnAppearing();
 		var words = await _localDatabaseService.GetDictionary();
 		WordsListView.ItemsSource = words;
@@ -22,26 +24,14 @@ public partial class DictionaryPage : ContentPage
 
     private async void AddWordBtnClicked(object sender, EventArgs e)
 	{
+		//Kelime ekleme sayfasını açar
         await App.Current.MainPage.Navigation.PushModalAsync(new WordAddingPage());
     }
 
 	private async void WordsListView_ItemTapped(object sender, ItemTappedEventArgs e)
 	{
+		// Kelime detay sayfasını tıklanan kelimeyi paramete göndererek açar
         var item = (Dictionary)e.Item;
         await Navigation.PushAsync(new WordDetailPage(item));
-
-        /*var action = await DisplayActionSheet("Seçenekler", "İptal", null, "Detayları Görüntüle" ,"Sil");
-
-        switch (action)
-        {
-            case "Sil":
-                await _localDatabaseService.Delete(item);
-                WordsListView.ItemsSource = await _localDatabaseService.GetDictionary();
-                break;
-            case "Detayları Görüntüle":
-                // Tıklanan öğenin detaylarını görüntülemek için detay sayfasına yönlendirme
-                await Navigation.PushAsync(new WordDetailPage(item));
-                break;
-        }*/
     }
 }
