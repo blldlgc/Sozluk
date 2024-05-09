@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sozluk.Pages.WordDetailPage"
-             Title="WordDetailPage"
-             Shell.BackgroundColor="Aqua">
+             Title="WordDetailPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="edit_icon.png" Text="Düzenle" Clicked="EditButtonClicked" />
         <ToolbarItem IconImageSource="delete_icon.png" Text="Sil" Clicked="DeleteButtonClicked" />

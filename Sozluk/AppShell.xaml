@@ -29,24 +29,29 @@
         />
         
     <TabBar>
+        
         <ShellContent
             Title="MainPage"
+            Icon="home"
             ContentTemplate="{DataTemplate pages:MainPage}"
             Route="MainPage" />
         
 
         <ShellContent
-            Title="DictionaryPage"
+            Title="Dictionary Page"
+            Icon="dictionary"
             ContentTemplate="{DataTemplate pages:DictionaryPage}"
             Route="DictionaryPage" />
 
         <ShellContent
             Title="Stats"
+            Icon="stats"
             ContentTemplate="{DataTemplate pages:StatsPage}"
             Route="StatsPage" />
 
         <ShellContent
             Title="Profile"
+            Icon="profile"
             ContentTemplate="{DataTemplate pages:ProfilePage}"
             Route="ProfilePage" />
 

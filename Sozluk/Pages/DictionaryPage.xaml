@@ -15,6 +15,7 @@
 
         
         <ListView x:Name="WordsListView"
+                  
           HasUnevenRows="True"
           ItemTapped="WordsListView_ItemTapped" VerticalScrollBarVisibility="Never" Margin="5,2,5,2"
             >

@@ -13,7 +13,7 @@
                 Aspect="AspectFit" />
 
             <Label
-                Text="SözlükApp"
+                Text="Quiztionary"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
 

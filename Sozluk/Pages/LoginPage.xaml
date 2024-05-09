@@ -15,13 +15,13 @@
                 SemanticProperties.Description="dot net bot in a race car number eight" />
 
             <Label
-                Text="Sözlük APP"
+                Text="Quiztionary"
 
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
 
             <Label
-                Text="Sözlük uygulamasına hoşgeldiniz, giriş yapınız veya üye olunuz."
+                Text="Quiztionary uygulamasına hoşgeldiniz, giriş yapınız veya üye olunuz."
                 Style="{StaticResource SubHeadline}"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
