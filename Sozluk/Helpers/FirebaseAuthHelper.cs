@@ -10,6 +10,7 @@ namespace Sozluk.Helpers;
 
 public class FirebaseAuthHelper
 {
+    public static string? userId;
     private const string AuthKey = "authState";
 
     private static FirebaseAuthConfig _config = new FirebaseAuthConfig()
@@ -50,8 +51,10 @@ public class FirebaseAuthHelper
 
             if (userInfo != null)
             {
-                return null; // Başarılı
+                
                 Preferences.Default.Set<bool>(AuthKey, true);
+                userId = userInfo.Uid;
+                return null; // Başarılı
             }
             else
             {

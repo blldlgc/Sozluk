@@ -1,5 +1,6 @@
 using Sozluk.Database;
 using Sozluk.Models;
+using Sozluk.Helpers;
 
 namespace Sozluk.Pages;
 
@@ -18,7 +19,9 @@ public partial class DictionaryPage : ContentPage
 	{
 		//sayfa açıldığında veritabanından kelimeleri çeker ve listview'e yükler
 		base.OnAppearing();
-		var words = await _localDatabaseService.GetDictionary();
+        LocalDatabaseService _localDatabaseService = new LocalDatabaseService(); 
+
+        var words = await _localDatabaseService.GetDictionary();
 		WordsListView.ItemsSource = words;
 	}
 

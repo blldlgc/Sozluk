@@ -4,16 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sozluk.Helpers;
 
 namespace Sozluk.Database
 {
     public class LocalDatabaseService
     {
-        private const string DB_NAME = "sozluk.db3";
+        
+        
         private readonly SQLiteAsyncConnection _connection;
 
         public LocalDatabaseService()
         {
+            
+            string? userId = FirebaseAuthHelper.userId;
+            string DB_NAME = $"{userId}_sozluk.db3";
             _connection = new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, DB_NAME));
             //_connection.CreateTableAsync<Models.Dictionary>();
             //CreateTableAsync().Wait();
