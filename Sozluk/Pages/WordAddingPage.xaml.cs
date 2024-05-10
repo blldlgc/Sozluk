@@ -1,11 +1,12 @@
 using Sozluk.Database;
+using Sozluk.Models;
 
 
 namespace Sozluk.Pages;
 
 public partial class WordAddingPage : ContentPage
 {
-
+    private readonly Dictionary _word;
     private readonly Database.LocalDatabaseService _localDatabaseService;
     private int _editId;
     private byte[] photoData;
@@ -46,6 +47,14 @@ public partial class WordAddingPage : ContentPage
                     Example = exampleEntryField.Text,
                     Image = imagePath
                 });
+                int wordId = await getId(nameEntryField.Text);
+                App.Current.MainPage.DisplayAlert("id", wordId.ToString(), "OK"); //TODO silinecek
+                await _localDatabaseService.Create(new Models.QuizDates
+                {
+                    WordId = wordId,
+                    Level = 0,
+                  
+                });
             }
             else
             {
@@ -69,6 +78,19 @@ public partial class WordAddingPage : ContentPage
         }
         await App.Current.MainPage.Navigation.PopModalAsync();
     }
+
+    private async Task<int> getId(string word)
+    {
+        // Veritabanında kelimenin ID'sini almak için sorgu yapılır
+        var dictionary = (await _localDatabaseService.GetDictionary()).FirstOrDefault(d => d.Word == word);
+
+       
+
+        // Kelime bulunduysa ID'si döndürülür, bulunamadıysa -1 döndürülür veya hata durumunda -1 döndürülür.
+        return dictionary != null ? dictionary.Id : -1;
+        
+    }
+
 
 
 

@@ -36,6 +36,12 @@
             ContentTemplate="{DataTemplate pages:MainPage}"
             Route="MainPage" />
         
+        <ShellContent
+            Title="Quiz"
+            Icon="home"
+            ContentTemplate="{DataTemplate pages:QuizPage}"
+            Route="QuizPage" />
+        
 
         <ShellContent
             Title="Dictionary Page"

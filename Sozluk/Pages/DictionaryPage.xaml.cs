@@ -35,6 +35,8 @@ public partial class DictionaryPage : ContentPage
 	{
 		// Kelime detay sayfasını tıklanan kelimeyi paramete göndererek açar
         var item = (Dictionary)e.Item;
-        await Navigation.PushAsync(new WordDetailPage(item));
+        var quizDates = await _localDatabaseService.GetQuizDatesForWord(item);
+        
+        await Navigation.PushAsync(new WordDetailPage(item,quizDates));
     }
 }
