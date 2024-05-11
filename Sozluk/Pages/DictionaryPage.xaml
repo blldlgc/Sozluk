@@ -17,7 +17,7 @@
         <ListView x:Name="WordsListView"
                   
           HasUnevenRows="True"
-          ItemTapped="WordsListView_ItemTapped" VerticalScrollBarVisibility="Never" Margin="5,2,5,2"
+          ItemTapped="WordsListView_ItemTapped" VerticalScrollBarVisibility="Default" Margin="5,2,5,2"
             >
             <ListView.ItemTemplate>
                 <DataTemplate>
