@@ -49,12 +49,12 @@ public partial class WordAddingPage : ContentPage
                 });
                 int wordId = await getId(nameEntryField.Text);
                 App.Current.MainPage.DisplayAlert("id", wordId.ToString(), "OK"); //TODO silinecek
-                await _localDatabaseService.Create(new Models.QuizDates
+                /*await _localDatabaseService.Create(new Models.QuizDates
                 {
                     WordId = wordId,
                     Level = 0,
                   
-                });
+                });*/
             }
             else
             {

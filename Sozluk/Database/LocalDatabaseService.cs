@@ -74,15 +74,14 @@ namespace Sozluk.Database
         {
             try
             {
-                // Belirli bir kelimeye ait QuizDates nesnesini almak için veritabanı sorgusu yapın
-                // Diyelim ki QuizDates tablosunda kelimeye göre filtreleme yapacağız
                 var quizDates = await _connection.Table<QuizDates>().Where(q => q.WordId == word.Id).FirstOrDefaultAsync();
 
-                return quizDates;
+                // Eğer quizDates null ise, varsayılan bir QuizDates nesnesi döndürün:
+                return quizDates ?? new QuizDates { WordId = word.Id };
+
             }
             catch (Exception ex)
             {
-                // Hata oluştuğunda burada işleyin (loglama veya kullanıcıya bildirim gibi)
                 Console.WriteLine("Error occurred while fetching QuizDates for word: " + ex.Message);
                 return null; // Hata durumunda null döndür
             }
@@ -116,6 +115,8 @@ namespace Sozluk.Database
             await _connection.UpdateAsync(existingDates);
         }
 
+        
+
 
         public async Task<Models.Dictionary> GetDictionaryById(int id)
         {
@@ -125,6 +126,7 @@ namespace Sozluk.Database
         public async Task Create(Models.Dictionary dictionary)
         {
             await _connection.InsertAsync(dictionary);
+            await Create(new QuizDates { WordId = dictionary.Id, Level = 0 });
         }
 
         public async Task Update(Models.Dictionary dictionary)

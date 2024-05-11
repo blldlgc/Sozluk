@@ -27,8 +27,8 @@ public partial class DictionaryPage : ContentPage
 
     private async void AddWordBtnClicked(object sender, EventArgs e)
 	{
-		//Kelime ekleme sayfasını açar
-        await App.Current.MainPage.Navigation.PushModalAsync(new WordAddingPage());
+        //Kelime ekleme sayfasını açar
+        await Navigation.PushAsync(new WordAddingPage());
     }
 
 	private async void WordsListView_ItemTapped(object sender, ItemTappedEventArgs e)
