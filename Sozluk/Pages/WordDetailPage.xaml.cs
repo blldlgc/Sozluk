@@ -1,3 +1,4 @@
+
 using Sozluk.Models;
 namespace Sozluk.Pages;
 
@@ -34,15 +35,7 @@ public partial class WordDetailPage : ContentPage
         {
             // Dictionary sınıfından gelen özellikleri kullanarak detayları görüntüle
             LevelLabel.Text = "Level: " + quizDates.Level;
-            //Date1Label.Text = "Date 1: " + quizDates.date1;
-            /*if (quizDates.date1 != DateTime.MinValue)
-            {
-                Date1Label.Text = "Date 1: " + quizDates.date1;
-            }
-            else
-            {
-                Date1Label.Text = "Date 1: Not set";
-            }*/
+            
             for (int i = 1; i <= 7; i++)
             {
                 var dateProperty = typeof(QuizDates).GetProperty("date" + i);
@@ -52,7 +45,7 @@ public partial class WordDetailPage : ContentPage
 
                 if (date != DateTime.MinValue)
                 {
-                    dateLabel.Text = "Date " + i + ": " + date;
+                    dateLabel.Text = "Date " + i + ": " + date.ToString("dd/MM/yyyy");
                 }
                 else
                 {
@@ -89,8 +82,14 @@ public partial class WordDetailPage : ContentPage
         }
     }
 
-    private void EditButtonClicked(object sender, EventArgs e)
+    private async void EditButtonClicked(object sender, EventArgs e)
     {
+
+        // Update quiz dates using the retrieved ID and new dates
+        await _localDatabaseService.UpdateQuizDates(_word.Id);
+
+        // Display success message or handle errors
+        await DisplayAlert("Başarılı", "Quiz tarihleri güncellendi.", "Tamam");
 
     }
 }

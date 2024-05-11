@@ -17,10 +17,10 @@ namespace Sozluk.Models
             [Column("wordLevel")]
             public int Level { get; set; }
 
-            [Column("date1")]
-            public DateTime date1 { get; set; }
+        [Column("date1")]
+            public DateTime date1 { get; set; } 
             [Column("date2")]
-            public DateTime date2 { get; set; }
+            public DateTime date2 { get; set; } 
             [Column("date3")]
             public DateTime date3 { get; set; }
             [Column("date4")]

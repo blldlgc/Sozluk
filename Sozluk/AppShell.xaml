@@ -22,7 +22,13 @@
         Route="WordAddingPage"
         Shell.FlyoutItemIsVisible="False"
         />
-        
+
+    <ShellContent
+        Title="QuizTest"
+        ContentTemplate="{DataTemplate pages:QuizPage}"
+        Route="QuizTestPage"
+        Shell.FlyoutItemIsVisible="False"/>
+
     <TabBar>
         
         <ShellContent
