@@ -4,8 +4,7 @@
              x:Class="Sozluk.Pages.WordDetailPage"
              Title="WordDetailPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="edit_icon.png" Text="Düzenle" Clicked="EditButtonClicked" />
-        <ToolbarItem IconImageSource="delete_icon.png" Text="Sil" Clicked="DeleteButtonClicked" />
+        <ToolbarItem IconImageSource="delete" Text="Sil" Clicked="DeleteButtonClicked" />
     </ContentPage.ToolbarItems>
     <StackLayout VerticalOptions="Start" Margin="20" >
         <Image x:Name="PictureImage" Aspect="AspectFit" MaximumHeightRequest="300"/>

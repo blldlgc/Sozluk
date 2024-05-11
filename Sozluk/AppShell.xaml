@@ -8,11 +8,6 @@
     Shell.FlyoutBehavior="Disabled"
     Title="Sozluk">
 
-    <ShellContent
-        Title="Loading"
-        ContentTemplate="{DataTemplate pages:LoadingPage}"
-        Route="LoadingPage"
-        Shell.FlyoutItemIsVisible="False"/>
 
     <ShellContent
         Title="Login"
@@ -38,13 +33,13 @@
         
         <ShellContent
             Title="Quiz"
-            Icon="home"
+            Icon="test"
             ContentTemplate="{DataTemplate pages:QuizPage}"
             Route="QuizPage" />
         
 
         <ShellContent
-            Title="Dictionary Page"
+            Title="Dictionary"
             Icon="dictionary"
             ContentTemplate="{DataTemplate pages:DictionaryPage}"
             Route="DictionaryPage" />

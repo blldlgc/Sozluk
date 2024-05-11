@@ -1,3 +1,4 @@
+using Microsoft.Maui.Controls;
 using Sozluk.Helpers;
 
 namespace Sozluk.Pages;
@@ -42,20 +43,43 @@ public partial class LoginPage : ContentPage
 
     private async void ButtonClickedSignIn(object sender, EventArgs e)
     {
+        // Buton tıklandığında bekleme göstergesini görünür yap
+        loadingGrid.IsVisible = true;
+        loadingIndicator.IsRunning = true;
+        loadingIndicator.IsVisible = true;
+
         //Kayıt olma işlemi için kullanıcı adı, email ve şifre bilgilerini alır ve firebase üzerinde kayıt işlemi yapar
         FirebaseAuthHelper helper = new FirebaseAuthHelper();
 
         var auth = await helper.Create(Username, Email, Password);
+
+        // Giriş işlemi tamamlandığında bekleme göstergesini gizle 
+        loadingIndicator.IsRunning = false;
+        loadingIndicator.IsVisible = false;
+        loadingGrid.IsVisible = false;
 
         await App.Current.MainPage.DisplayAlert("Kayıt Ol", auth?.GetStatusMessage(), "OK");
     }
 
     private async void ButtonClickedLogin(object sender, EventArgs e)
     {
+        // Buton tıklandığında bekleme göstergesini görünür yap
+        loadingGrid.IsVisible = true;
+        loadingIndicator.IsRunning = true;
+        loadingIndicator.IsVisible = true;
+        
+
         //Giriş yapma işlemi için email ve şifre bilgilerini alır ve firebase üzerinde giriş işlemi yapar
         FirebaseAuthHelper helper = new FirebaseAuthHelper();
 
         var auth = await helper.Login(Email, Password);
+
+        // Giriş işlemi tamamlandığında bekleme göstergesini gizle 
+        loadingIndicator.IsRunning = false;
+        loadingIndicator.IsVisible = false;
+        loadingGrid.IsVisible = false;
+
+
 
         if (auth == null)
         {

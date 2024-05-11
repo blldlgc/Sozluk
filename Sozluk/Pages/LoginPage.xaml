@@ -8,6 +8,7 @@
         <VerticalStackLayout x:Name="stackMain"
         Padding="30,0"
         Spacing="25">
+            
             <Image
                 Source="app_icon.jpeg"
                 HeightRequest="185"
@@ -26,19 +27,19 @@
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
 
+            
             <Button
                 MaximumWidthRequest="300"
                 x:Name="Login"
                 Text="Giriş Yap" 
-                SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="ButtonClickedLoginStack"
                 HorizontalOptions="Fill" />
+
 
             <Button
                 MaximumWidthRequest="300"
                 x:Name="signinPage"
-                Text="Üye Ol" 
-                SemanticProperties.Hint="Counts the number of times you click"
+                Text="Üye Ol"
                 Clicked="ButtonClickedSignUpStack"
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>
@@ -51,7 +52,7 @@
             Source="app_icon.jpeg"
                 HeightRequest="185"
                 Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" VerticalOptions="FillAndExpand" />
+                VerticalOptions="FillAndExpand" />
 
             <Label
                 Text="Giriş Yap"
@@ -77,11 +78,11 @@
                 Keyboard="Default"
                 SemanticProperties.Hint="Enter your username"  IsPassword="True" InputTransparent="False" />
 
+            
             <Button
                 MaximumWidthRequest="300"
                 x:Name="login"
-                Text="Giriş Yap" 
-       
+                Text="Giriş Yap"        
                 Clicked="ButtonClickedLogin"
                 HorizontalOptions="Fill" />
 
@@ -164,7 +165,17 @@
 
         </VerticalStackLayout>
 
-        
+        <Grid x:Name="loadingGrid"
+      IsVisible="False"
+      BackgroundColor="Black"
+      Opacity="0.5">
+            <ActivityIndicator x:Name="loadingIndicator"
+                    IsRunning="False"
+                    IsVisible="False"
+                    Color="White"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+        </Grid>
     </Grid>
     
 
