@@ -177,10 +177,11 @@ namespace Sozluk.Database
             else
             {
                 // Kelime varsa, isteğe bağlı olarak kullanıcıya bilgi verebilirsiniz:
-                App.Current.MainPage.DisplayAlert("Bilgi", $"{dictionary.Word} kelimesi zaten sözlükte mevcut!", "Tamam");
+                //App.Current.MainPage.DisplayAlert("Bilgi", $"{dictionary.Word} kelimesi zaten sözlükte mevcut!", "Tamam");
             }
 
         }
+
 
 
         public async Task Update(Models.Dictionary dictionary)

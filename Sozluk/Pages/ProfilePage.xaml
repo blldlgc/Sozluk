@@ -9,12 +9,16 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Button 
-            Text="Signout"
-            Clicked="Signout_Clicked"
-            MaximumWidthRequest="300"/>
-        <Button 
             Text="Kelime Ekle"
             Clicked="AddWord_Clicked"
-            MaximumWidthRequest="300"/>
+            MaximumWidthRequest="300"
+            Margin="5,5"/>
+        <Button 
+            Text="Signout"
+            Clicked="Signout_Clicked"
+            MaximumWidthRequest="300"
+            Margin="5,5"
+            />
+        
     </VerticalStackLayout>  
 </ContentPage>

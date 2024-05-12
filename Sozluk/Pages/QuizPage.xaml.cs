@@ -3,7 +3,7 @@ namespace Sozluk.Pages;
 
 public partial class QuizPage : ContentPage
 {
-    private int quizCount = 2;
+    private int quizCount = 10;
 	public QuizPage()
 	{
 		InitializeComponent();

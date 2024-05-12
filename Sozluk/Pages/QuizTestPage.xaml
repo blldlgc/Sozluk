@@ -5,7 +5,27 @@
              Title="QuizTestPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="QuestionLabel" Text="Soru" FontSize="20" />
+            <Label x:Name="QuestionLabel" Text="Soru" FontSize="20"  HorizontalOptions="Center" />
+
+            <Button x:Name="AnswerButton1"
+                Text="Cevap 1"
+                Clicked="AnswerButtonClicked"
+                Margin="20,5"/>
+
+            <Button x:Name="AnswerButton2"
+                Text="Cevap 2"
+                Clicked="AnswerButtonClicked"
+                Margin="20,5"/>
+
+            <Button x:Name="AnswerButton3"
+                Text="Cevap 3"
+                Clicked="AnswerButtonClicked"
+                Margin="20,5"/>
+
+            <Button x:Name="AnswerButton4"
+                Text="Cevap 4"
+                Clicked="AnswerButtonClicked"
+                Margin="20,5"/>
 
 
             <Label x:Name="ResultLabel" Text="" FontSize="16" />

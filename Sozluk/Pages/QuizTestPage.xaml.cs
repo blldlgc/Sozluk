@@ -10,4 +10,8 @@ public partial class QuizTestPage : ContentPage
         InitializeComponent();
     }
 
+    private async void AnswerButtonClicked(object sender, EventArgs e)
+    {
+        
+    }
 }
