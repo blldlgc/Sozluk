@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sozluk.Pages.DictionaryPage"
-             Title="DictionaryPage">
+             Title="Sözlük Sayfası">
     <StackLayout VerticalOptions="Start" Margin="2,2,2,2">
 
         <Button 
-                Text="Add Word"
+                Text="Kelime Ekle"
                 Clicked="AddWordBtnClicked"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center"

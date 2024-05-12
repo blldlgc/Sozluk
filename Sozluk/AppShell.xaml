@@ -32,7 +32,7 @@
     <TabBar>
         
         <ShellContent
-            Title="MainPage"
+            Title="Ana Sayfa"
             Icon="home"
             ContentTemplate="{DataTemplate pages:MainPage}"
             Route="MainPage" />
@@ -45,19 +45,19 @@
         
 
         <ShellContent
-            Title="Dictionary"
+            Title="Sözlük"
             Icon="dictionary"
             ContentTemplate="{DataTemplate pages:DictionaryPage}"
             Route="DictionaryPage" />
 
         <ShellContent
-            Title="Stats"
+            Title="İstatistikler"
             Icon="stats"
             ContentTemplate="{DataTemplate pages:StatsPage}"
             Route="StatsPage" />
 
         <ShellContent
-            Title="Profile"
+            Title="Profil"
             Icon="profile"
             ContentTemplate="{DataTemplate pages:ProfilePage}"
             Route="ProfilePage" />

@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sozluk.Pages.QuizTestPage"
-             Title="QuizTestPage">
+             Title="Quiz Test Sayfası">
     <ContentPage.Content>
         <StackLayout>
             <Label x:Name="QuestionLabel" Text="Soru" FontSize="20"  HorizontalOptions="Center" />

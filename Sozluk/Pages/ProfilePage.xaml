@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sozluk.Pages.ProfilePage"
-             Title="ProfilePage">
+             Title="Profil Sayfası">
     <VerticalStackLayout>
         <Label 
             Text="Profile Page"
@@ -14,7 +14,7 @@
             MaximumWidthRequest="300"
             Margin="5,5"/>
         <Button 
-            Text="Signout"
+            Text="Çıkış Yap"
             Clicked="Signout_Clicked"
             MaximumWidthRequest="300"
             Margin="5,5"
