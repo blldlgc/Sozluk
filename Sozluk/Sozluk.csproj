@@ -59,10 +59,16 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\app_icon.jpeg" />
 	  <None Remove="Resources\Splash\appiconfg.svg" />
+	  <None Remove="WordList.html" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiAsset Include="WordList.html" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />

@@ -12,5 +12,9 @@
             Text="Signout"
             Clicked="Signout_Clicked"
             MaximumWidthRequest="300"/>
-    </VerticalStackLayout>
+        <Button 
+            Text="Kelime Ekle"
+            Clicked="AddWord_Clicked"
+            MaximumWidthRequest="300"/>
+    </VerticalStackLayout>  
 </ContentPage>

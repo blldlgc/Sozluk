@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Sozluk.Helpers;
 using Sozluk.Models;
+using System.Xml;
+using HtmlAgilityPack;
 
 namespace Sozluk.Database
 {
@@ -115,7 +117,44 @@ namespace Sozluk.Database
             await _connection.UpdateAsync(existingDates);
         }
 
-        
+        public class HtmlTableParser
+        {
+            public List<Dictionary> ParseHtmlTable(string htmlContent)
+            {
+                List<Dictionary> dictionaryList = new List<Dictionary>();
+
+                // HtmlAgilityPack kullanarak HTML içeriğini işle
+                var doc = new HtmlDocument();
+                doc.LoadHtml(htmlContent);
+
+                // Tablodaki her satırı döngüye al
+                foreach (HtmlNode row in doc.DocumentNode.SelectNodes("//tr"))
+                {
+                    // Tablodaki sütunları döngüye al
+                    HtmlNodeCollection cells = row.SelectNodes("td");
+                    if (cells != null && cells.Count == 4) // Her satırın 4 sütunu olduğunu varsayalım
+                    {
+                        // Sütunlardan verileri al
+                        string word = cells[1].InnerText.Trim();
+                        string meaning = cells[2].InnerText.Trim();
+                        string example = cells[3].InnerText.Trim();
+
+                        // Yeni bir Dictionary nesnesi oluştur ve listeye ekle
+                        var dictionary = new Dictionary
+                        {
+                            Word = word,
+                            Meaning = meaning,
+                            Example = example
+                        };
+                        dictionaryList.Add(dictionary);
+                    }
+                }
+
+                return dictionaryList;
+            }
+        }
+
+
 
 
         public async Task<Models.Dictionary> GetDictionaryById(int id)
@@ -125,9 +164,24 @@ namespace Sozluk.Database
 
         public async Task Create(Models.Dictionary dictionary)
         {
-            await _connection.InsertAsync(dictionary);
-            await Create(new QuizDates { WordId = dictionary.Id, Level = 0 });
+            var existingWord = await _connection.Table<Models.Dictionary>()
+                                       .Where(d => d.Word.ToLower() == dictionary.Word.ToLower()) // Büyük/küçük harf duyarsız karşılaştırma
+                                       .FirstOrDefaultAsync();
+
+            if (existingWord == null)
+            {
+                // Kelime yoksa ekle
+                await _connection.InsertAsync(dictionary);
+                await Create(new QuizDates { WordId = dictionary.Id, Level = 0 });
+            }
+            else
+            {
+                // Kelime varsa, isteğe bağlı olarak kullanıcıya bilgi verebilirsiniz:
+                App.Current.MainPage.DisplayAlert("Bilgi", $"{dictionary.Word} kelimesi zaten sözlükte mevcut!", "Tamam");
+            }
+
         }
+
 
         public async Task Update(Models.Dictionary dictionary)
         {

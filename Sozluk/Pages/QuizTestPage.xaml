@@ -7,10 +7,6 @@
         <StackLayout>
             <Label x:Name="QuestionLabel" Text="Soru" FontSize="20" />
 
-            <Button x:Name="AnswerButton1" Text="Cevap 1" Clicked="AnswerButtonClicked" />
-            <Button x:Name="AnswerButton2" Text="Cevap 2" Clicked="AnswerButtonClicked" />
-            <Button x:Name="AnswerButton3" Text="Cevap 3" Clicked="AnswerButtonClicked" />
-            <Button x:Name="AnswerButton4" Text="Cevap 4" Clicked="AnswerButtonClicked" />
 
             <Label x:Name="ResultLabel" Text="" FontSize="16" />
         </StackLayout>
