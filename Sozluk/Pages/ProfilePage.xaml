@@ -9,7 +9,7 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Button 
-            Text="Kelime Ekle"
+            Text="Hazır Kelimeleri Ekle"
             Clicked="AddWord_Clicked"
             MaximumWidthRequest="300"
             Margin="5,5"/>
