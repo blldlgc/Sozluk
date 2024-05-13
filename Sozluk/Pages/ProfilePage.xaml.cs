@@ -61,7 +61,8 @@ public partial class ProfilePage : ContentPage
             var parser = new LocalDatabaseService.HtmlTableParser();
 
             // HTML içeriğini işle ve Dictionary listesi al
-            List<Dictionary> dictionaryList = parser.ParseHtmlTable(htmlContent);
+            //List<Dictionary> dictionaryList = parser.ParseHtmlTable(htmlContent);
+            List<Dictionary> dictionaryList = await parser.ParseHtmlTable(htmlContent);
 
             // Elde edilen Dictionary listesini veritabanına ekleyebilirsiniz
             foreach (var dictionary in dictionaryList)

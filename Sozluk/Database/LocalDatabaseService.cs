@@ -119,7 +119,7 @@ namespace Sozluk.Database
 
         public class HtmlTableParser
         {
-            public List<Dictionary> ParseHtmlTable(string htmlContent)
+            public async Task<List<Dictionary>> ParseHtmlTable(string htmlContent)
             {
                 List<Dictionary> dictionaryList = new List<Dictionary>();
 
@@ -132,19 +132,29 @@ namespace Sozluk.Database
                 {
                     // Tablodaki sütunları döngüye al
                     HtmlNodeCollection cells = row.SelectNodes("td");
-                    if (cells != null && cells.Count == 4) // Her satırın 4 sütunu olduğunu varsayalım
+                    if (cells != null && (cells.Count == 4 || cells.Count == 5)) // Her satırın 4 sütunu olduğunu varsayalım
                     {
                         // Sütunlardan verileri al
                         string word = cells[1].InnerText.Trim();
                         string meaning = cells[2].InnerText.Trim();
                         string example = cells[3].InnerText.Trim();
+                        string imageLink = "";
+
+                        if (cells.Count == 5)
+                        {
+                            imageLink = cells[4].InnerText.Trim();
+                        }
+
+                        // Fotoğrafı indir ve kaydet
+                        string imagePath = await DownloadAndSaveImage(imageLink);
 
                         // Yeni bir Dictionary nesnesi oluştur ve listeye ekle
                         var dictionary = new Dictionary
                         {
                             Word = word,
                             Meaning = meaning,
-                            Example = example
+                            Example = example,
+                            Image = imagePath // Kaydedilen fotoğrafın yolunu ekle
                         };
                         dictionaryList.Add(dictionary);
                     }
@@ -152,8 +162,31 @@ namespace Sozluk.Database
 
                 return dictionaryList;
             }
-        }
 
+            private async Task<string> DownloadAndSaveImage(string imageLink)
+            {
+                try
+                {
+                    using var httpClient = new HttpClient();
+                    var imageData = await httpClient.GetByteArrayAsync(imageLink);
+
+                    // Uygulama verilerine kaydedilecek dosya yolu
+                    string fileName = Path.GetFileName(imageLink);
+                    string filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+
+                    // Dosyayı kaydet
+                    await File.WriteAllBytesAsync(filePath, imageData);
+
+                    return filePath;
+                }
+                catch (Exception ex)
+                {
+                    // Hata işleme
+                    Console.WriteLine($"Fotoğraf indirilemedi: {ex.Message}");
+                    return null; // veya hata durumunda varsayılan bir resim yolu
+                }
+            }
+        }
 
 
 
