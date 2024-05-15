@@ -16,6 +16,7 @@ namespace Sozluk.Database
         
         
         private readonly SQLiteAsyncConnection _connection;
+        private readonly QuizHelper _QuizHelper;
 
         public LocalDatabaseService()
         {
@@ -23,6 +24,7 @@ namespace Sozluk.Database
             string? userId = FirebaseAuthHelper.userId;
             string DB_NAME = $"{userId}_sozluk.db3";
             _connection = new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, DB_NAME));
+            _QuizHelper = new QuizHelper(_connection);
             //_connection.CreateTableAsync<Models.Dictionary>();
             //CreateTableAsync().Wait();
 
@@ -117,6 +119,21 @@ namespace Sozluk.Database
             await _connection.UpdateAsync(existingDates);
         }
 
+        public async Task<List<Models.QuizDates>> GetWordsByLevel(int level)
+        {
+            try
+            {
+                // WordRepository sınıfını kullanarak kelimeleri al
+                return await _QuizHelper.GetWordsByLevel(level);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error while getting words by level: {ex.Message}");
+                return null; // Hata durumunda null dön
+            }
+            return null;
+        }
+
         public class HtmlTableParser
         {
             public async Task<List<Dictionary>> ParseHtmlTable(string htmlContent)
@@ -205,7 +222,7 @@ namespace Sozluk.Database
             {
                 // Kelime yoksa ekle
                 await _connection.InsertAsync(dictionary);
-                await Create(new QuizDates { WordId = dictionary.Id, Level = 0 });
+                await Create(new QuizDates { WordId = dictionary.Id, Level = 1 });
             }
             else
             {
@@ -222,9 +239,10 @@ namespace Sozluk.Database
             await _connection.UpdateAsync(dictionary);
         }
 
-        public async Task Delete(Models.Dictionary dictionary)
+        public async Task Delete(Models.Dictionary dictionary, Models.QuizDates quizdates)
         {
             await _connection.DeleteAsync(dictionary);
+            await _connection.DeleteAsync(quizdates);
         }
 
         public async Task Create(QuizDates quizDates)

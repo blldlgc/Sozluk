@@ -15,5 +15,15 @@
         HorizontalOptions="Center"
         Margin="5,5,5,5"
         />
+        <ListView x:Name="wordListView">
+            
+        </ListView>
+        <Label x:Name="wordLabel1" />
+        <Label x:Name="wordLabel2" />
+        <Label x:Name="wordLabel3" />
+        <Label x:Name="wordLabel4" />
+        <Label x:Name="wordLabel5" />
+        <Label x:Name="wordLabel6" />
+        <Label x:Name="wordLabel7" />
     </VerticalStackLayout>
 </ContentPage>

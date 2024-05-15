@@ -75,7 +75,7 @@ public partial class WordDetailPage : ContentPage
         if (action)
         {
             // Silme işlemi için kelimeyi parametre olarak gönder
-            await _localDatabaseService.Delete(_word);
+            await _localDatabaseService.Delete(_word, _quizDates);
             await DisplayAlert("Başarılı", "Kelime veritabanından silidi.", "Tamam");
             // Geri git
             await Navigation.PopAsync();
