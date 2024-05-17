@@ -104,7 +104,7 @@ namespace Sozluk.Database
                 existingDates = new QuizDates { WordId = wordId };
             }
 
-            var today = DateTime.Now;
+            var today = DateTime.Today;
 
             // Update each date property with the corresponding new date
             existingDates.date1 = today;
@@ -119,20 +119,39 @@ namespace Sozluk.Database
             await _connection.UpdateAsync(existingDates);
         }
 
-        public async Task<List<Models.QuizDates>> GetWordsByLevel(int level)
+        public async Task UpdateLevel(int wordId)
+        {
+            var quizDates = await _connection.Table<QuizDates>().Where(q => q.WordId == wordId).FirstOrDefaultAsync();
+
+            if (quizDates != null)
+            {
+                // Get the current level
+                int currentLevel = quizDates.Level;
+
+                // Increase the level by 1
+                int newLevel = currentLevel + 1;
+
+                // Update the level in the database
+                quizDates.Level = newLevel;
+                await _connection.UpdateAsync(quizDates);
+            }
+        }
+
+        public async Task<List<Models.QuizDates>> GetWordsByLevel(int level, int quizCount)
         {
             try
             {
                 // WordRepository sınıfını kullanarak kelimeleri al
-                return await _QuizHelper.GetWordsByLevel(level);
+                return await _QuizHelper.GetWordsByLevel(level,quizCount);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error while getting words by level: {ex.Message}");
                 return null; // Hata durumunda null dön
             }
-            return null;
         }
+
+        
 
         public class HtmlTableParser
         {

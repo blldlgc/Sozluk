@@ -88,6 +88,8 @@ public partial class WordDetailPage : ContentPage
         // Update quiz dates using the retrieved ID and new dates
         await _localDatabaseService.UpdateQuizDates(_word.Id);
 
+        await _localDatabaseService.UpdateLevel(_word.Id);
+
         // Display success message or handle errors
         await DisplayAlert("Başarılı", "Quiz tarihleri güncellendi.", "Tamam");
 
