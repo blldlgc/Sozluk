@@ -7,7 +7,7 @@ namespace Sozluk.Pages;
 public partial class WordAddingPage : ContentPage
 {
     private readonly Dictionary _word;
-    private readonly Database.LocalDatabaseService _localDatabaseService;
+    private readonly LocalDatabaseService _localDatabaseService;
     private int _editId;
     private byte[] photoData;
     private string imagePath;

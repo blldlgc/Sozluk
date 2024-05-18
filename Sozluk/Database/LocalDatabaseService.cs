@@ -128,6 +128,8 @@ namespace Sozluk.Database
                 // Get the current level
                 int currentLevel = quizDates.Level;
 
+                if (currentLevel == 1) { UpdateQuizDates(wordId); }
+
                 // Increase the level by 1
                 int newLevel = currentLevel + 1;
 
@@ -229,6 +231,16 @@ namespace Sozluk.Database
         public async Task<Models.Dictionary> GetDictionaryById(int id)
         {
             return await _connection.Table<Models.Dictionary>().Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<string>> GetRandomMeanings(int count, string excludeMeaning)
+        {
+            var allMeanings = await _connection.Table<Models.Dictionary>()
+                                               .Where(x => x.Meaning != excludeMeaning)
+                                               .ToListAsync();
+
+            var randomMeanings = allMeanings.OrderBy(x => Guid.NewGuid()).Take(count).Select(x => x.Meaning).ToList();
+            return randomMeanings;
         }
 
         public async Task Create(Models.Dictionary dictionary)

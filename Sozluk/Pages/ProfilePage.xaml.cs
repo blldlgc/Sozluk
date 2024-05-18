@@ -7,17 +7,28 @@ namespace Sozluk.Pages;
 public partial class ProfilePage : ContentPage
 {
 	private readonly FirebaseAuthHelper _authHelper;
-    private readonly LocalDatabaseService _localDatabaseService = new LocalDatabaseService();
+    private readonly LocalDatabaseService _localDatabaseService;
 
 
     public ProfilePage()
     {
         InitializeComponent();
+        _localDatabaseService = new LocalDatabaseService();
     }
+
 
     public ProfilePage(FirebaseAuthHelper firebaseAuthHelper) : this()
     {
         _authHelper = firebaseAuthHelper;
+    }
+
+    protected override async void OnAppearing()
+    {
+        
+        base.OnAppearing();
+        LocalDatabaseService _localDatabaseService = new LocalDatabaseService();
+
+ 
     }
 
 
@@ -51,6 +62,7 @@ public partial class ProfilePage : ContentPage
 
     private async void AddWord_Clicked(object sender, EventArgs e)
     {
+        
         using var stream = await FileSystem.Current.OpenAppPackageFileAsync("WordList.html"); // Dosya adını doğru yazdığınızdan emin olun
         using var reader = new StreamReader(stream);
         string htmlContent = await reader.ReadToEndAsync();
@@ -74,5 +86,7 @@ public partial class ProfilePage : ContentPage
         {
             Console.WriteLine("HTML content could not be read from file.");
         }
+
+        await DisplayAlert("Başarılı", "Kelime listesi veritabanına eklendi.", "Tamam");
     }
 }
