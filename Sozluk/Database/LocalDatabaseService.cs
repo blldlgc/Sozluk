@@ -18,6 +18,7 @@ namespace Sozluk.Database
         private readonly SQLiteAsyncConnection _connection;
         private readonly QuizHelper _QuizHelper;
 
+
         public LocalDatabaseService()
         {
             
@@ -46,17 +47,10 @@ namespace Sozluk.Database
             // CreateTableAsync metodu çağrılırken bir zaman aşımı uygulayın
             var createTableTask = _connection.CreateTableAsync<Models.Dictionary>();
             var createTableTask2 = _connection.CreateTableAsync<Models.QuizDates>();
+            var createTableTask3 = _connection.CreateTableAsync<Models.DailyWordCounts>();
+            var createTableTask4 = _connection.CreateTableAsync<Models.UserSettings>();
             // Zaman aşımı süresi içinde işlemin tamamlanıp tamamlanmadığını kontrol edin
-            if (createTableTask.Wait(timeoutMilliseconds))
-            {
-                // CreateTableAsync metodu başarıyla tamamlandı
-            }
-            else
-            {
-                // Zaman aşımı gerçekleşti, bir hata oluşturun
-                throw new TimeoutException("CreateTableAsync operation timed out.");
-            }
-            if (createTableTask2.Wait(timeoutMilliseconds))
+            if (createTableTask.Wait(timeoutMilliseconds) && createTableTask2.Wait(timeoutMilliseconds) && createTableTask3.Wait(timeoutMilliseconds) && createTableTask4.Wait(timeoutMilliseconds))
             {
                 // CreateTableAsync metodu başarıyla tamamlandı
             }
@@ -139,6 +133,69 @@ namespace Sozluk.Database
             }
         }
 
+        public async Task SaveDailyWordCount(int wordCount)
+        {
+            var settings = await _connection.Table<UserSettings>().FirstOrDefaultAsync();
+            if (settings == null)
+            {
+                settings = new UserSettings { DailyWordCount = wordCount };
+                await _connection.InsertAsync(settings);
+            }
+            else
+            {
+                settings.DailyWordCount = wordCount;
+                await _connection.UpdateAsync(settings);
+            }
+        }
+
+        public async Task<int> GetDailyWordCount()
+        {
+            var settings = await _connection.Table<UserSettings>().FirstOrDefaultAsync();
+            return settings?.DailyWordCount ?? 10; // Varsayılan değer 10
+        }
+
+        public async Task SaveAndUpdateDailyWordCount(int wordCount)
+        {
+            // UserSettings tablosunu güncelle
+            var settings = await _connection.Table<UserSettings>().FirstOrDefaultAsync();
+            if (settings == null)
+            {
+                settings = new UserSettings { DailyWordCount = wordCount };
+                await _connection.InsertAsync(settings);
+            }
+            else
+            {
+                settings.DailyWordCount = wordCount;
+                await _connection.UpdateAsync(settings);
+            }
+
+            // DailyWordCounts tablosunu güncelle
+            var today = DateTime.Today;
+            var existingEntry = await _connection.Table<DailyWordCounts>().FirstOrDefaultAsync(d => d.Date == today);
+            if (existingEntry != null)
+            {
+                existingEntry.WordCount = wordCount;
+                await _connection.UpdateAsync(existingEntry);
+            }
+            else
+            {
+                var newEntry = new DailyWordCounts
+                {
+                    Date = today,
+                    WordCount = wordCount
+                };
+                await _connection.InsertAsync(newEntry);
+            }
+        }
+        public async Task<int> GetDailyQuizCount()
+        {
+            var today = DateTime.Today;
+            var wordCounts = await _connection.Table<DailyWordCounts>()
+                                               .FirstOrDefaultAsync(d => d.Date == today);
+            return wordCounts?.WordCount ?? 10; // Varsayılan değer 10
+        }
+
+
         public async Task<List<Models.QuizDates>> GetWordsByLevel(int level, int quizCount)
         {
             try
@@ -157,42 +214,41 @@ namespace Sozluk.Database
 
         public class HtmlTableParser
         {
+            private readonly HttpClient _httpClient;
+
+            public HtmlTableParser()
+            {
+                _httpClient = new HttpClient();
+            }
             public async Task<List<Dictionary>> ParseHtmlTable(string htmlContent)
             {
                 List<Dictionary> dictionaryList = new List<Dictionary>();
 
-                // HtmlAgilityPack kullanarak HTML içeriğini işle
                 var doc = new HtmlDocument();
                 doc.LoadHtml(htmlContent);
 
-                // Tablodaki her satırı döngüye al
                 foreach (HtmlNode row in doc.DocumentNode.SelectNodes("//tr"))
                 {
-                    // Tablodaki sütunları döngüye al
                     HtmlNodeCollection cells = row.SelectNodes("td");
-                    if (cells != null && (cells.Count == 4 || cells.Count == 5)) // Her satırın 4 sütunu olduğunu varsayalım
+                    if (cells != null && (cells.Count == 4 || cells.Count == 5))
                     {
-                        // Sütunlardan verileri al
                         string word = cells[1].InnerText.Trim();
                         string meaning = cells[2].InnerText.Trim();
                         string example = cells[3].InnerText.Trim();
-                        string imageLink = "";
+                        string imageLink = cells.Count == 5 ? cells[4].InnerText.Trim() : "";
 
-                        if (cells.Count == 5)
+                        string imagePath = null;
+                        if (!string.IsNullOrEmpty(imageLink))
                         {
-                            imageLink = cells[4].InnerText.Trim();
+                            imagePath = await DownloadAndSaveImage(imageLink);
                         }
 
-                        // Fotoğrafı indir ve kaydet
-                        string imagePath = await DownloadAndSaveImage(imageLink);
-
-                        // Yeni bir Dictionary nesnesi oluştur ve listeye ekle
                         var dictionary = new Dictionary
                         {
                             Word = word,
                             Meaning = meaning,
                             Example = example,
-                            Image = imagePath // Kaydedilen fotoğrafın yolunu ekle
+                            Image = imagePath
                         };
                         dictionaryList.Add(dictionary);
                     }
@@ -201,27 +257,29 @@ namespace Sozluk.Database
                 return dictionaryList;
             }
 
-            private async Task<string> DownloadAndSaveImage(string imageLink)
+            private async Task<string> DownloadAndSaveImage(string imageUrl)
             {
+                if (!Uri.TryCreate(imageUrl, UriKind.Absolute, out Uri uri))
+                {
+                    throw new ArgumentException("Invalid URL provided.");
+                }
+
                 try
                 {
-                    using var httpClient = new HttpClient();
-                    var imageData = await httpClient.GetByteArrayAsync(imageLink);
+                    var response = await _httpClient.GetAsync(uri);
+                    response.EnsureSuccessStatusCode();
 
-                    // Uygulama verilerine kaydedilecek dosya yolu
-                    string fileName = Path.GetFileName(imageLink);
-                    string filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+                    var imageData = await response.Content.ReadAsByteArrayAsync();
+                    string filePath = $"path/to/save/{Guid.NewGuid()}.jpg"; // Dosya yolu düzenlenmeli
 
-                    // Dosyayı kaydet
                     await File.WriteAllBytesAsync(filePath, imageData);
-
                     return filePath;
                 }
                 catch (Exception ex)
                 {
-                    // Hata işleme
-                    Console.WriteLine($"Fotoğraf indirilemedi: {ex.Message}");
-                    return null; // veya hata durumunda varsayılan bir resim yolu
+                    // Hata yönetimi
+                    Console.WriteLine($"Error downloading image: {ex.Message}");
+                    return null;
                 }
             }
         }

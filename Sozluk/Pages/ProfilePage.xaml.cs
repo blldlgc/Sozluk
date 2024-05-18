@@ -44,6 +44,19 @@ public partial class ProfilePage : ContentPage
             // _authHelper null ise, uygun bir şekilde işleyin veya hata mesajı gösterin
         }
     }
+    private async void SaveButtonClicked(object sender, EventArgs e)
+    {
+        if (int.TryParse(dailyWordCountEntry.Text, out int dailyWordCount))
+        {
+            await _localDatabaseService.SaveDailyWordCount(dailyWordCount);
+            await _localDatabaseService.SaveAndUpdateDailyWordCount(dailyWordCount);
+            await DisplayAlert("Başarılı", "Günlük kelime sayısı kaydedildi.", "Tamam");
+        }
+        else
+        {
+            await DisplayAlert("Hata", "Geçerli bir sayı girin.", "Tamam");
+        }
+    }
 
     private async Task<string> ReadHtmlContentFromFileAsync(string filePath)
     {

@@ -4,6 +4,17 @@
              x:Class="Sozluk.Pages.ProfilePage"
              Title="Profil Sayfası">
     <VerticalStackLayout>
+
+        <Label Text="Günlük Kelime Sayısını Ayarla" 
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand" />
+        <Entry x:Name="dailyWordCountEntry" 
+               Placeholder="Günlük kelime sayısı"
+               Keyboard="Numeric"
+               MaximumWidthRequest="300"/>
+        <Button Text="Kaydet" 
+                Clicked="SaveButtonClicked" 
+                MaximumWidthRequest="300"/>
         <Label 
             Text="Profile Page"
             VerticalOptions="Center" 

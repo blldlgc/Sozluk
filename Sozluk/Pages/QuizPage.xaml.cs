@@ -6,7 +6,8 @@ public partial class QuizPage : ContentPage
 {
 
     private readonly LocalDatabaseService _localDatabaseService = new LocalDatabaseService();
-    private int quizCount = 4;
+    private int quizCount;
+    private int wordCount;
     private List<int> wordIds = new List<int>();
 
 
@@ -15,11 +16,7 @@ public partial class QuizPage : ContentPage
 	{
         _localDatabaseService = new LocalDatabaseService();
         InitializeComponent();
-        for (int i = 1; i <= 7; i++)
-        {
-            LoadWordsByLevel(i);
-
-        }
+        
 
     }
 
@@ -27,14 +24,20 @@ public partial class QuizPage : ContentPage
     {
         
         base.OnAppearing();
+
         
-        /*for (int i = 1; i <= 7; i++)
+
+        wordCount = await _localDatabaseService.GetDailyWordCount();
+        dailyWordCountLabel.Text = $"Bugün ilk defa sorulacak kelime sayısı: {wordCount}";
+        await _localDatabaseService.SaveAndUpdateDailyWordCount(wordCount);
+        quizCount = await _localDatabaseService.GetDailyQuizCount();
+        dailyQuizCountLabel.Text = $"Kalan kelime sayısı: {quizCount}";
+
+        for (int i = 1; i <= 7; i++)
         {
             LoadWordsByLevel(i);
 
-        }*/
-
-
+        }
     }
 
 
