@@ -20,13 +20,13 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Text="Level 1" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Text="Level 2" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Text="Level 3" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Text="Level 4" Grid.Column="3" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Text="Level 5" Grid.Column="4" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Text="Level 6" Grid.Column="5" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
-            <Label Text="Level 7" Grid.Column="6" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Text="Level 1" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" HorizontalTextAlignment="Center" Padding="0.1"/>
+            <Label Text="Level 2" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" HorizontalTextAlignment="Center" Padding="0.1" />
+            <Label Text="Level 3" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" HorizontalTextAlignment="Center" Padding="0.1"/>
+            <Label Text="Level 4" Grid.Column="3" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" HorizontalTextAlignment="Center" Padding="0.1"/>
+            <Label Text="Level 5" Grid.Column="4" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" HorizontalTextAlignment="Center" Padding="0.1"/>
+            <Label Text="Level 6" Grid.Column="5" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" HorizontalTextAlignment="Center" Padding="0.1"/>
+            <Label Text="Level 7" Grid.Column="6" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" HorizontalTextAlignment="Center" Padding="0.1"/>
             <Label x:Name="totalLevel1CountLabel" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" />
             <Label x:Name="totalLevel2CountLabel" Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" />
             <Label x:Name="totalLevel3CountLabel" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" />

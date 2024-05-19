@@ -13,6 +13,8 @@ public class FirebaseAuthHelper
     public static string? userId;
     private const string AuthKey = "authState";
 
+    public static string? CurrentUsername { get; private set; }
+
     private static FirebaseAuthConfig _config = new FirebaseAuthConfig()
     {
         // Firebase Console ile uygulamayı bağlama işlemi
@@ -32,7 +34,9 @@ public class FirebaseAuthHelper
         try
         {
             var response = await client.CreateUserWithEmailAndPasswordAsync(email, password, username);
-            
+
+            CurrentUsername = username;
+
             return response?.User?.Uid?.ToString();
         }
         catch (Exception e)
@@ -54,6 +58,9 @@ public class FirebaseAuthHelper
                 
                 Preferences.Default.Set<bool>(AuthKey, true);
                 userId = userInfo.Uid;
+
+                CurrentUsername = userInfo.DisplayName;
+                Preferences.Default.Set<bool>(AuthKey, true);
                 return null; // Başarılı
             }
             else
@@ -72,7 +79,7 @@ public class FirebaseAuthHelper
     public void signOut()
     {
         client.SignOut();
-        //Preferences.Default.Set<bool>(AuthKey, false);
+        Preferences.Default.Set<bool>(AuthKey, false);
     }
 
 

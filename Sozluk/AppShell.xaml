@@ -37,7 +37,8 @@
             Title="Ana Sayfa"
             Icon="home"
             ContentTemplate="{DataTemplate pages:MainPage}"
-            Route="MainPage" />
+            Route="MainPage"
+            />
         
         <ShellContent
             Title="Quiz"

@@ -52,6 +52,7 @@ public partial class QuizPage : ContentPage
     {
         // Kelimeleri al
         var words = await _localDatabaseService.GetWordsByLevel(level, quizCount);
+        int wordCounts = words.Count();
 
         var wordList = string.Join(", ", words.Select(w => w.WordId));
 
@@ -59,7 +60,7 @@ public partial class QuizPage : ContentPage
 
 
         var label = (Label)FindByName($"wordLabel{level}");
-        label.Text = $"Level {level} kelime id'leri: {wordList}";
+        label.Text = $"Level {level} kelime sayısı: {wordCounts}";
 
     }
 

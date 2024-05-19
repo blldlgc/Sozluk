@@ -4,31 +4,31 @@
              x:Class="Sozluk.Pages.QuizPage"
              Title="Quiz Sayfası">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button 
-        Text="Quiz'e Başla"
-        Clicked="StartQuizBtnClicked"
-        VerticalOptions="Center" 
-        HorizontalOptions="Center"
-        Margin="5,5,5,5"
-        />
+        
         <Label x:Name="dailyWordCountLabel"
                Text="Bugün ilk defa sorulucak kelime sayısı: 0"
                HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand" />
+               VerticalOptions="CenterAndExpand" 
+               FontSize="Body"
+               />
         <Label x:Name="dailyQuizCountLabel"
-       Text="Kalan kelime sayısı: 0"
-       HorizontalOptions="Center"
-       VerticalOptions="CenterAndExpand" />
-        <Label x:Name="wordLabel1" />
-        <Label x:Name="wordLabel2" />
-        <Label x:Name="wordLabel3" />
-        <Label x:Name="wordLabel4" />
-        <Label x:Name="wordLabel5" />
-        <Label x:Name="wordLabel6" />
-        <Label x:Name="wordLabel7" />
+               Text="Kalan kelime sayısı: 0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand" 
+               FontSize="Body"/>
+        <Label x:Name="wordLabel1" HorizontalOptions="Center" FontSize="Body"/>
+        <Label x:Name="wordLabel2" HorizontalOptions="Center" FontSize="Body"/>
+        <Label x:Name="wordLabel3" HorizontalOptions="Center" FontSize="Body"/>
+        <Label x:Name="wordLabel4" HorizontalOptions="Center" FontSize="Body"/>
+        <Label x:Name="wordLabel5" HorizontalOptions="Center" FontSize="Body"/>
+        <Label x:Name="wordLabel6" HorizontalOptions="Center" FontSize="Body"/>
+        <Label x:Name="wordLabel7" HorizontalOptions="Center" FontSize="Body"/>
+        <Button 
+            Text="Quiz'e Başla"
+            Clicked="StartQuizBtnClicked"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Margin="5,20,5,20"
+/>
     </VerticalStackLayout>
 </ContentPage>

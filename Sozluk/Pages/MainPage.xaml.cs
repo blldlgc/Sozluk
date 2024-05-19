@@ -1,4 +1,4 @@
-﻿
+﻿using Sozluk.Helpers;
 
 namespace Sozluk.Pages
 {
@@ -9,6 +9,7 @@ namespace Sozluk.Pages
         public MainPage()
         {
             InitializeComponent();
+            WelcomeText.Text = "Sözlük-Quiz Uygulamasına Hoşgeldiniz " + FirebaseAuthHelper.CurrentUsername + "!";
         }
 
         private async void OnCounterClicked(object sender, EventArgs e)

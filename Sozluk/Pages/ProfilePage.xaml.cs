@@ -27,8 +27,13 @@ public partial class ProfilePage : ContentPage
         
         base.OnAppearing();
         LocalDatabaseService _localDatabaseService = new LocalDatabaseService();
-        
- 
+
+        DisplayUsername();
+    }
+
+    private void DisplayUsername()
+    {
+            UsernameLabel.Text = "Merhaba " + FirebaseAuthHelper.CurrentUsername + "!";     
     }
 
 
