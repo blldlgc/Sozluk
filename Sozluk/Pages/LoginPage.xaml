@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sozluk.Pages.LoginPage"
-             Title="LoginPage">
+             Shell.NavBarIsVisible="False"
+             >
 
     <Grid>
         <VerticalStackLayout x:Name="stackMain"
@@ -13,7 +14,8 @@
                 Source="app_icon2.png"
                 HeightRequest="185"
                 Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
+                Margin="2,50,2,2"
+                />
 
             <Label
                 Text="Quiztionary"
@@ -24,8 +26,7 @@
             <Label
                 Text="Quiztionary uygulamasına hoşgeldiniz, giriş yapınız veya üye olunuz."
                 Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+                 />
 
             
             <Button
@@ -52,7 +53,8 @@
             Source="app_icon2.png"
                 HeightRequest="185"
                 Aspect="AspectFit"
-                VerticalOptions="FillAndExpand" />
+                VerticalOptions="FillAndExpand" 
+                Margin="2,50,2,2"/>
 
             <Label
                 Text="Giriş Yap"
@@ -115,7 +117,8 @@
             <Image
                 Source="app_icon2.png"
                 HeightRequest="185"
-                Aspect="AspectFit" />
+                Aspect="AspectFit" 
+                Margin="2,50,2,2"/>
 
             <Label
                 Text="Üye ol"

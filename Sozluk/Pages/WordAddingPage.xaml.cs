@@ -8,7 +8,6 @@ public partial class WordAddingPage : ContentPage
 {
     private readonly Dictionary _word;
     private readonly LocalDatabaseService _localDatabaseService;
-    private int _editId;
     private byte[] photoData;
     private string imagePath;
 
@@ -26,45 +25,39 @@ public partial class WordAddingPage : ContentPage
         _localDatabaseService = new LocalDatabaseService();
     }
 
-	private async void BackBtnClicked(object sender, EventArgs e)
-	{
-        // Geri butonuna basıldığında sayfayı kapatır
-        await App.Current.MainPage.Navigation.PopModalAsync();
-    }
+
 
     private async void SaveBtnClicked(object sender, EventArgs e)
     {
         // Kaydet butonuna basıldığında kelimeyi veritabanına ekler
         try
         {
-            if (_editId == 0)
+            // Boş değer kontrolleri
+            if (string.IsNullOrWhiteSpace(nameEntryField.Text))
             {
-                // Yeni kelime ekleme işlemi
-                await _localDatabaseService.Create(new Models.Dictionary
-                {
-                    Word = nameEntryField.Text,
-                    Meaning = meaningEntryField.Text,
-                    Example = exampleEntryField.Text,
-                    Image = imagePath
-                });
-                int wordId = await getId(nameEntryField.Text);
-                App.Current.MainPage.DisplayAlert("id", wordId.ToString(), "OK"); //TODO silinecek
-                
+                await App.Current.MainPage.DisplayAlert("Hata", "Lütfen kelime girin.", "Tamam");
+                return; // İşlem durdurulur
             }
-            else
+            if (string.IsNullOrWhiteSpace(meaningEntryField.Text))
             {
-                // Kelime güncelleme işlemi
-                await _localDatabaseService.Update(new Models.Dictionary
-                {
-                    Id = _editId,
-                    Word = nameEntryField.Text,
-                    Meaning = meaningEntryField.Text,
-                    Example = exampleEntryField.Text,
-                    Image = imagePath
-                });
-
-                _editId = 0;
+                await App.Current.MainPage.DisplayAlert("Hata", "Lütfen anlam girin.", "Tamam");
+                return; // İşlem durdurulur
             }
+            if (string.IsNullOrWhiteSpace(exampleEntryField.Text))
+            {
+                await App.Current.MainPage.DisplayAlert("Hata", "Lütfen örnek girin.", "Tamam");
+                return; // İşlem durdurulur
+            }
+            await _localDatabaseService.Create(new Models.Dictionary
+            {
+                Word = nameEntryField.Text,
+                Meaning = meaningEntryField.Text,
+                Example = exampleEntryField.Text,
+                Image = imagePath
+            });
+            int wordId = await getId(nameEntryField.Text);
+            App.Current.MainPage.DisplayAlert("Kelime veritabanına başarıyla Eklnedi","Kelime Id'si:"+ wordId.ToString(), "Tamam"); //TODO silinecek
+            
         }
         catch (Exception ex)
         {
