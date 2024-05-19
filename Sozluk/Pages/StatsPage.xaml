@@ -1,12 +1,92 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sozluk.Pages.StatsPage"
              Title="İstatistikler">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <StackLayout Padding="10">
+        <!-- Toplam Bilinen Kelime Sayıları Bölümü -->
+        <Label Text="Toplam Bilinen Kelime Sayıları" FontSize="Large" FontAttributes="Bold" />
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="Level 1" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Text="Level 2" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Text="Level 3" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Text="Level 4" Grid.Column="3" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Text="Level 5" Grid.Column="4" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Text="Level 6" Grid.Column="5" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Text="Level 7" Grid.Column="6" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label x:Name="totalLevel1CountLabel" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" />
+            <Label x:Name="totalLevel2CountLabel" Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" />
+            <Label x:Name="totalLevel3CountLabel" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" />
+            <Label x:Name="totalLevel4CountLabel" Grid.Column="3" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" />
+            <Label x:Name="totalLevel5CountLabel" Grid.Column="4" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" />
+            <Label x:Name="totalLevel6CountLabel" Grid.Column="5" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" />
+            <Label x:Name="totalLevel7CountLabel" Grid.Column="6" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" />
+        </Grid>
+
+        <!-- Günlük Veriler Tablosu -->
+        <Label Text="Günlük Veriler" FontSize="Large" FontAttributes="Bold" Margin="0,20,0,10" />
+        <ListView x:Name="dailyStatsListView">
+            <ListView.Header>
+                <Grid Padding="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Tarih" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <Label Text="Level 1" Grid.Column="1" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <Label Text="Level 2" Grid.Column="2" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <Label Text="Level 3" Grid.Column="3" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <Label Text="Level 4" Grid.Column="4" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <Label Text="Level 5" Grid.Column="5" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <Label Text="Level 6" Grid.Column="6" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <Label Text="Level 7" Grid.Column="7" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Date, StringFormat='{}{0:dd.MM.yyyy}'}" Grid.Column="0" />
+                            <Label Text="{Binding Level1Count}" Grid.Column="1" HorizontalOptions="Center" />
+                            <Label Text="{Binding Level2Count}" Grid.Column="2" HorizontalOptions="Center" />
+                            <Label Text="{Binding Level3Count}" Grid.Column="3" HorizontalOptions="Center" />
+                            <Label Text="{Binding Level4Count}" Grid.Column="4" HorizontalOptions="Center" />
+                            <Label Text="{Binding Level5Count}" Grid.Column="5" HorizontalOptions="Center" />
+                            <Label Text="{Binding Level6Count}" Grid.Column="6" HorizontalOptions="Center" />
+                            <Label Text="{Binding Level7Count}" Grid.Column="7" HorizontalOptions="Center" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

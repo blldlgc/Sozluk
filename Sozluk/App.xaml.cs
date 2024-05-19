@@ -8,5 +8,11 @@
 
             MainPage = new AppShell();
         }
+
+        public void RestartApp()
+        {
+            // Yeni bir AppShell örneği oluştur ve MainPage olarak ayarla
+            MainPage = new AppShell();
+        }
     }
 }

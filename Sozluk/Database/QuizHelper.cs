@@ -80,6 +80,79 @@ namespace Sozluk.Database
 
         }
 
+        public async Task IncrementStats(int level)
+        {
+            var today = DateTime.Today;
+
+            // Bugünün tarihindeki kaydı al
+            var stats = await _connection.Table<Stats>().FirstOrDefaultAsync(s => s.Date == today);
+
+            if (stats == null)
+            {
+                // Bugünün tarihindeki kayıt yoksa oluştur
+                stats = new Stats
+                {
+                    Date = today
+                };
+                await _connection.InsertAsync(stats);
+            }
+
+            // Seviyeye göre ilgili sayacı artır
+            switch (level)
+            {
+                case 1:
+                    stats.Level1Count++;
+                    break;
+                case 2:
+                    stats.Level2Count++;
+                    break;
+                case 3:
+                    stats.Level3Count++;
+                    break;
+                case 4:
+                    stats.Level4Count++;
+                    break;
+                case 5:
+                    stats.Level5Count++;
+                    break;
+                case 6:
+                    stats.Level6Count++;
+                    break;
+                case 7:
+                    stats.Level7Count++;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid level");
+            }
+
+            // Güncellenen kaydı veritabanına yaz
+            await _connection.UpdateAsync(stats);
+        }
+
+        public async Task<Stats> GetTotalStatsAsync()
+        {
+            var totalStats = new Stats();
+            var allStats = await _connection.Table<Stats>().ToListAsync();
+
+            foreach (var stats in allStats)
+            {
+                totalStats.Level1Count += stats.Level1Count;
+                totalStats.Level2Count += stats.Level2Count;
+                totalStats.Level3Count += stats.Level3Count;
+                totalStats.Level4Count += stats.Level4Count;
+                totalStats.Level5Count += stats.Level5Count;
+                totalStats.Level6Count += stats.Level6Count;
+                totalStats.Level7Count += stats.Level7Count;
+            }
+
+            return totalStats;
+        }
+
+        public async Task<List<Stats>> GetDailyStatsAsync()
+        {
+            return await _connection.Table<Stats>().OrderByDescending(s => s.Date).ToListAsync();
+        }
+
 
 
 

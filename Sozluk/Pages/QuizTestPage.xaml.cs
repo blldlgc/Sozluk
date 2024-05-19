@@ -81,8 +81,8 @@ namespace Sozluk.Pages
             if (quizdates.Level == 1)
             {
                 // GÜnlük kalan kelime sayısını azaltır
-                _localDatabaseService.DecreaseDailyWordCount();
-                _localDatabaseService.UpdateQuizDates(currentWord.Id);
+                await _localDatabaseService.DecreaseDailyWordCount();
+                await _localDatabaseService.UpdateQuizDates(currentWord.Id);
             }
 
             if (selectedButton.Text == currentWord.Meaning)
@@ -90,7 +90,8 @@ namespace Sozluk.Pages
                 await DisplayAlert("Doğru!", "Doğru cevabı seçtiniz.", "Tamam");
 
                 // Kelime seviyesini yükselt
-                _localDatabaseService.UpdateLevel(currentWord.Id);
+                await _localDatabaseService.UpdateLevel(currentWord.Id);
+                await _quizHelper.IncrementStats(quizdates.Level);
             }
             else
             {

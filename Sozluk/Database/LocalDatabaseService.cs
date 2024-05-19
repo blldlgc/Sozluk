@@ -11,7 +11,7 @@ using HtmlAgilityPack;
 
 namespace Sozluk.Database
 {
-    public class LocalDatabaseService
+    public class LocalDatabaseService : IDisposable
     {
         
         
@@ -38,6 +38,10 @@ namespace Sozluk.Database
             }
             
         }
+        public void Dispose()
+        {
+            _connection?.CloseAsync().Wait();
+        }
 
         public SQLiteAsyncConnection GetConnection()
         {
@@ -54,12 +58,9 @@ namespace Sozluk.Database
             var createTableTask2 = _connection.CreateTableAsync<Models.QuizDates>();
             var createTableTask3 = _connection.CreateTableAsync<Models.DailyWordCounts>();
             var createTableTask4 = _connection.CreateTableAsync<Models.UserSettings>();
+            var createTableTask5 = _connection.CreateTableAsync<Models.Stats>();
             // Zaman aşımı süresi içinde işlemin tamamlanıp tamamlanmadığını kontrol edin
-            if (createTableTask.Wait(timeoutMilliseconds) && createTableTask2.Wait(timeoutMilliseconds) && createTableTask3.Wait(timeoutMilliseconds) && createTableTask4.Wait(timeoutMilliseconds))
-            {
-                // CreateTableAsync metodu başarıyla tamamlandı
-            }
-            else
+            if (!(createTableTask.Wait(timeoutMilliseconds) && createTableTask2.Wait(timeoutMilliseconds) && createTableTask3.Wait(timeoutMilliseconds) && createTableTask4.Wait(timeoutMilliseconds) && createTableTask5.Wait(timeoutMilliseconds)))
             {
                 // Zaman aşımı gerçekleşti, bir hata oluşturun
                 throw new TimeoutException("CreateTableAsync operation timed out.");

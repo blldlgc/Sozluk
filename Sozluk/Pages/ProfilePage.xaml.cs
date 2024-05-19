@@ -6,7 +6,7 @@ namespace Sozluk.Pages;
 
 public partial class ProfilePage : ContentPage
 {
-	private readonly FirebaseAuthHelper _authHelper;
+	private readonly FirebaseAuthHelper _authHelper = new FirebaseAuthHelper();
     private readonly LocalDatabaseService _localDatabaseService;
 
 
@@ -27,22 +27,21 @@ public partial class ProfilePage : ContentPage
         
         base.OnAppearing();
         LocalDatabaseService _localDatabaseService = new LocalDatabaseService();
-
+        
  
     }
 
 
     private void Signout_Clicked(object sender, EventArgs e)
 	{
-        if (_authHelper == null)
-        {
-            //_authHelper.signOut();
-            Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-        }
-        else
-        {
-            // _authHelper null ise, uygun bir şekilde işleyin veya hata mesajı gösterin
-        }
+        _localDatabaseService?.Dispose();
+        
+        _authHelper.signOut();
+        //Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+
+        Application.Current.MainPage = new AppShell();
+        Shell.Current.GoToAsync("//LoginPage");
+
     }
     private async void SaveButtonClicked(object sender, EventArgs e)
     {
