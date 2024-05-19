@@ -39,6 +39,11 @@ namespace Sozluk.Database
             
         }
 
+        public SQLiteAsyncConnection GetConnection()
+        {
+            return _connection;
+        }
+
         private void CreateTableWithTimeout()
         {
             // Zaman aşımı değeri (örneğin 10 saniye)
@@ -152,6 +157,51 @@ namespace Sozluk.Database
         {
             var settings = await _connection.Table<UserSettings>().FirstOrDefaultAsync();
             return settings?.DailyWordCount ?? 10; // Varsayılan değer 10
+        }
+
+        public async Task<int> DecreaseDailyWordCount()
+        {
+            var today = DateTime.Today;
+            var existingEntry = await _connection.Table<DailyWordCounts>().FirstOrDefaultAsync(d => d.Date == today);
+
+            if (existingEntry != null)
+            {
+                existingEntry.WordCount--;
+                await _connection.UpdateAsync(existingEntry);
+
+                // Güncelleme işlemi sonrasında veritabanından tekrar kontrol edelim
+                var updatedEntry = await _connection.Table<DailyWordCounts>().FirstOrDefaultAsync(d => d.Date == today);
+                Console.WriteLine($"[DEBUG] Güncellenmiş WordCount: {updatedEntry.WordCount}");
+
+                return updatedEntry.WordCount;
+            }
+            else
+            {
+                return 10; // Varsayılan değer
+            }
+        }
+
+        public async Task InitializeDailyWordCount()
+        {
+            var today = DateTime.Today;
+
+            // Bugünün tarihine ait bir kayıt olup olmadığını kontrol et
+            var existingEntry = await _connection.Table<DailyWordCounts>().FirstOrDefaultAsync(d => d.Date == today);
+
+            if (existingEntry == null)
+            {
+                // UserSettings tablosundan kelime sayısını al
+                var settings = await _connection.Table<UserSettings>().FirstOrDefaultAsync();
+                int wordCount = settings?.DailyWordCount ?? 10; // Varsayılan değer 10
+
+                // Yeni bir kayıt oluştur ve ekle
+                var newEntry = new DailyWordCounts
+                {
+                    Date = today,
+                    WordCount = wordCount
+                };
+                await _connection.InsertAsync(newEntry);
+            }
         }
 
         public async Task SaveAndUpdateDailyWordCount(int wordCount)
@@ -287,6 +337,11 @@ namespace Sozluk.Database
 
 
         public async Task<Models.Dictionary> GetDictionaryById(int id)
+        {
+            return await _connection.Table<Models.Dictionary>().Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<Models.Dictionary> GetQuizDatesById(int id)
         {
             return await _connection.Table<Models.Dictionary>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }

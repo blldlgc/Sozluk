@@ -61,8 +61,27 @@ namespace Sozluk.Database
             return words;
         }
 
+        public async Task ResetLevelAndDates(int id)
+        {
+            var quizDates = await _connection.Table<QuizDates>().Where(q => q.WordId == id).FirstOrDefaultAsync();
+            List<Models.QuizDates> words = new List<Models.QuizDates>();
 
-        
+
+            // Level ve tarihi veritabanında sıfırlama
+            quizDates.Level = 1;
+            quizDates.date1 = DateTime.MinValue;
+            quizDates.date2 = DateTime.MinValue;
+            quizDates.date3 = DateTime.MinValue;
+            quizDates.date4 = DateTime.MinValue;
+            quizDates.date5 = DateTime.MinValue;
+            quizDates.date6 = DateTime.MinValue;
+            quizDates.date7 = DateTime.MinValue;
+            await _connection.UpdateAsync(quizDates);
+
+        }
+
+
+
 
     }
 }
