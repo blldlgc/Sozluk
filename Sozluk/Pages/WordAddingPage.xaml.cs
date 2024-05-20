@@ -56,7 +56,7 @@ public partial class WordAddingPage : ContentPage
                 Image = imagePath
             });
             int wordId = await getId(nameEntryField.Text);
-            App.Current.MainPage.DisplayAlert("Kelime veritabanına başarıyla Eklnedi","Kelime Id'si:"+ wordId.ToString(), "Tamam"); //TODO silinecek
+            App.Current.MainPage.DisplayAlert("Kelime veritabanına başarıyla eklendi","Kelime Id'si:"+ wordId.ToString(), "Tamam"); //TODO silinecek
             
         }
         catch (Exception ex)

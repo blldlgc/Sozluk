@@ -22,18 +22,18 @@
         <Button Text="Kaydet" 
                 Clicked="SaveButtonClicked" 
                 MaximumWidthRequest="300"
-                Margin="5,5,5,20"/>
+                Margin="5,5,5,10"/>
         
         <Button 
             Text="Hazır Kelimeleri Ekle"
             Clicked="AddWord_Clicked"
             MaximumWidthRequest="300"
-            Margin="5,20"/>
+            Margin="5,10"/>
         <Button 
             Text="Çıkış Yap"
             Clicked="Signout_Clicked"
             MaximumWidthRequest="300"
-            Margin="5,20"
+            Margin="5,10"
             
             />
         
