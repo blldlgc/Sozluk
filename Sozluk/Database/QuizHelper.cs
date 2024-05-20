@@ -81,6 +81,58 @@ namespace Sozluk.Database
 
         }
 
+        public async Task ResetOldDays()
+        {
+            var today = DateTime.Today;
+            var quizDates = await _connection.Table<QuizDates>().ToListAsync();
+            
+            foreach (var item in quizDates)
+            {
+                int level = item.Level;
+                switch (level)
+                {
+                    case 2:
+                        if (item.date2 < today)
+                        {
+                            ResetLevelAndDates(item.WordId);
+                        }
+                        break;
+                    case 3:
+                        if (item.date3 < today)
+                        {
+                            ResetLevelAndDates(item.WordId);
+                        }
+                        break;
+                    case 4:
+                        if (item.date4 < today)
+                        {
+                            ResetLevelAndDates(item.WordId);
+                        }
+                        break;
+                    case 5:
+                        if (item.date5 < today)
+                        {
+                            ResetLevelAndDates(item.WordId);
+                        }
+                        break;
+                    case 6:
+                        if (item.date6 < today)
+                        {
+                            ResetLevelAndDates(item.WordId);
+                        }
+                        break;
+                    case 7:
+                        if (item.date7 < today)
+                        {
+                            ResetLevelAndDates(item.WordId);
+                        }
+                        break;
+                }
+                
+                
+            }
+        }
+
         public async Task IncrementStats(int level)
         {
             var today = DateTime.Today;
@@ -133,19 +185,35 @@ namespace Sozluk.Database
         public async Task<Stats> GetTotalStatsAsync()
         {
             var totalStats = new Stats();
-            var allStats = await _connection.Table<Stats>().ToListAsync();
+            var allQuizdates = await _connection.Table<QuizDates>().ToListAsync();
 
-            foreach (var stats in allStats)
+            foreach (var quizDate in allQuizdates)
             {
-                totalStats.Level1Count += stats.Level1Count;
-                totalStats.Level2Count += stats.Level2Count;
-                totalStats.Level3Count += stats.Level3Count;
-                totalStats.Level4Count += stats.Level4Count;
-                totalStats.Level5Count += stats.Level5Count;
-                totalStats.Level6Count += stats.Level6Count;
-                totalStats.Level7Count += stats.Level7Count;
+                switch (quizDate.Level)
+                {
+                    case 1:
+                        totalStats.Level1Count++;
+                        break;
+                    case 2:
+                        totalStats.Level2Count++;
+                        break;
+                    case 3:
+                        totalStats.Level3Count++;
+                        break;
+                    case 4:
+                        totalStats.Level4Count++;
+                        break;
+                    case 5:
+                        totalStats.Level5Count++;
+                        break;
+                    case 6:
+                        totalStats.Level6Count++;
+                        break;
+                    case 7:
+                        totalStats.Level7Count++;
+                        break;
+                }
             }
-
             return totalStats;
         }
 

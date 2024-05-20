@@ -1,15 +1,21 @@
-﻿using Sozluk.Helpers;
+﻿using Sozluk.Database;
+using Sozluk.Helpers;
 
 namespace Sozluk.Pages
 {
     public partial class MainPage : ContentPage
     {
         int count = 0;
+        QuizHelper _quizHelper;
 
         public MainPage()
         {
             InitializeComponent();
             WelcomeText.Text = "Sözlük-Quiz Uygulamasına Hoşgeldiniz " + FirebaseAuthHelper.CurrentUsername + "!";
+            var databaseService = new LocalDatabaseService();
+            _quizHelper = new QuizHelper(databaseService.GetConnection());
+            _quizHelper.ResetOldDays();
+            
         }
 
         private async void OnCounterClicked(object sender, EventArgs e)

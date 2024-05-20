@@ -32,7 +32,7 @@
             x:Name="exampleEntryField"
             Text="{Binding ExampleBinding}"
             MaximumWidthRequest="300"
-            Placeholder="Cümle giriniiz"
+            Placeholder="Cümle giriniz"
             TextColor="Black"
             Keyboard="Default"
             InputTransparent="False" />

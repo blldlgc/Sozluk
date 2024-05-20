@@ -378,7 +378,6 @@ namespace Sozluk.Database
         }
 
 
-
         public async Task Update(Models.Dictionary dictionary)
         {
             await _connection.UpdateAsync(dictionary);
