@@ -15,8 +15,7 @@ public partial class WordDetailPage : ContentPage
         _word = word;
         _quizDates = quizDates;
 
-        // Sayfa başlığını belirle
-        Title = "Word Detail";
+        
 
         // Detayları görüntüle
         ShowWordDetails(word);
@@ -34,7 +33,7 @@ public partial class WordDetailPage : ContentPage
         void ShowQuizDetails(QuizDates quizDates)
         {
             // Dictionary sınıfından gelen özellikleri kullanarak detayları görüntüle
-            LevelLabel.Text = "Level: " + quizDates.Level;
+            LevelLabel.Text = "Seviye: " + quizDates.Level;
             
             for (int i = 1; i <= 7; i++)
             {
@@ -45,11 +44,11 @@ public partial class WordDetailPage : ContentPage
 
                 if (date != DateTime.MinValue)
                 {
-                    dateLabel.Text = "Date " + i + ": " + date.ToString("dd/MM/yyyy");
+                    dateLabel.Text = "Tarih " + i + ": " + date.ToString("dd/MM/yyyy");
                 }
                 else
                 {
-                    dateLabel.Text = "Date " + i + ": Not set";
+                    dateLabel.Text = "Tarih " + i + ": Belirlenmedi";
                 }
             }
         }
@@ -80,18 +79,5 @@ public partial class WordDetailPage : ContentPage
             // Geri git
             await Navigation.PopAsync();
         }
-    }
-
-    private async void EditButtonClicked(object sender, EventArgs e)
-    {
-
-        // Update quiz dates using the retrieved ID and new dates
-        await _localDatabaseService.UpdateQuizDates(_word.Id);
-        
-        await _localDatabaseService.UpdateLevel(_word.Id);
-
-        // Display success message or handle errors
-        await DisplayAlert("Başarılı", "Quiz tarihleri güncellendi.", "Tamam");
-
     }
 }

@@ -192,9 +192,7 @@ namespace Sozluk.Database
             {
                 switch (quizDate.Level)
                 {
-                    case 2:
-                        totalStats.Level1Count++;
-                        break;
+                    
                     case 3:
                         totalStats.Level2Count++;
                         break;
@@ -215,6 +213,7 @@ namespace Sozluk.Database
             foreach (var stats in allStats)
             {
                 totalStats.Level1Count += stats.Level1Count;
+                totalStats.Level7Count += stats.Level7Count;
             }
             return totalStats;
         }

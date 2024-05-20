@@ -32,41 +32,49 @@ namespace Sozluk.Pages
 
         private async void LoadQuestion()
         {
-            if (currentWordIndex < wordIds.Count)
+            try
             {
-                // WordId'ye göre kelimeyi al
-                var currentWord = await _localDatabaseService.GetDictionaryById(wordIds[currentWordIndex]);
-
-                // Soruyu ekrana yaz
-                QuestionLabel.Text = currentWord.Word;
-
-                // Cevap seçeneklerini oluştur
-                List<string> answerOptions = new List<string>
+                if (currentWordIndex < wordIds.Count)
                 {
-                    currentWord.Meaning // Doğru cevap
-                };
+                    // WordId'ye göre kelimeyi al
+                    var currentWord = await _localDatabaseService.GetDictionaryById(wordIds[currentWordIndex]);
 
-                // Veritabanından rastgele 3 anlam daha çek
-                var randomMeanings = await _localDatabaseService.GetRandomMeanings(3, currentWord.Meaning);
-                answerOptions.AddRange(randomMeanings);
+                    // Soruyu ekrana yaz
+                    QuestionLabel.Text = currentWord.Word;
+                    PictureImage.Source = ImageSource.FromFile(currentWord.Image);
 
-                // Cevap seçeneklerini karıştır
-                var shuffledOptions = answerOptions.OrderBy(x => Guid.NewGuid()).ToList();
+                    // Cevap seçeneklerini oluştur
+                    List<string> answerOptions = new List<string> { currentWord.Meaning };
 
-                // Cevap seçeneklerini butonlara ata
-                for (int i = 0; i < answerButtons.Count; i++)
+                    // Veritabanından rastgele 3 anlam daha çek
+                    var randomMeanings = await _localDatabaseService.GetRandomMeanings(3, currentWord.Meaning);
+                    answerOptions.AddRange(randomMeanings);
+
+                    // Cevap seçeneklerini karıştır
+                    var shuffledOptions = answerOptions.OrderBy(x => Guid.NewGuid()).ToList();
+
+                    // Cevap seçeneklerini butonlara ata
+                    for (int i = 0; i < answerButtons.Count; i++)
+                    {
+                        answerButtons[i].Text = shuffledOptions[i];
+                        answerButtons[i].Clicked -= AnswerButtonClicked; // Olay işleyicisini kaldır
+                        answerButtons[i].Clicked += AnswerButtonClicked; // Olay işleyicisini ekle
+                    }
+                }
+                else
                 {
-                    answerButtons[i].Text = shuffledOptions[i];
-                    answerButtons[i].Clicked -= AnswerButtonClicked; // Olay işleyicisini kaldır
-                    answerButtons[i].Clicked += AnswerButtonClicked; // Olay işleyicisini ekle
+                    // Tüm sorular bittiyse
+                    await DisplayAlert("Quiz Bitti", "Tüm soruları cevapladınız!", "Tamam");
+                    await App.Current.MainPage.Navigation.PopModalAsync();
                 }
             }
-            else
+            catch (ArgumentOutOfRangeException ex)
             {
-                // Tüm sorular bittiyse
-                await DisplayAlert("Quiz Bitti", "Tüm soruları cevapladınız!", "Tamam");
-                await App.Current.MainPage.Navigation.PopModalAsync();
-                
+                await DisplayAlert("Hata", $"Bir hata oluştu: {ex.Message}", "Tamam");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Hata", $"Beklenmeyen bir hata oluştu: {ex.Message}", "Tamam");
             }
         }
 

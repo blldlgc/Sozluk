@@ -7,15 +7,14 @@
         
         <Label x:Name="dailyWordCountLabel"
                Text="Bugün ilk defa sorulucak kelime sayısı: 0"
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand" 
-               FontSize="Body"
+               Style="{StaticResource SubHeadline}"
+               Margin="10,3"
+               
                />
         <Label x:Name="dailyQuizCountLabel"
                Text="Kalan kelime sayısı: 0"
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand" 
-               FontSize="Body"/>
+               Style="{StaticResource SubHeadline}"
+               Margin="10,3,10,20"/>
         <Label x:Name="wordLabel1" HorizontalOptions="Center" FontSize="Body"/>
         <Label x:Name="wordLabel2" HorizontalOptions="Center" FontSize="Body"/>
         <Label x:Name="wordLabel3" HorizontalOptions="Center" FontSize="Body"/>
@@ -23,6 +22,11 @@
         <Label x:Name="wordLabel5" HorizontalOptions="Center" FontSize="Body"/>
         <Label x:Name="wordLabel6" HorizontalOptions="Center" FontSize="Body"/>
         <Label x:Name="wordLabel7" HorizontalOptions="Center" FontSize="Body"/>
+        <Label
+                Text="Hadi öğrenmeye başlayalım!"
+                Style="{StaticResource SubHeadline}"
+                Margin="10,20,10,10"/>
+        <Label Text=" 👇🏻" HorizontalOptions="Center" FontSize="58"/>
         <Button 
             Text="Quiz'e Başla"
             Clicked="StartQuizBtnClicked"
