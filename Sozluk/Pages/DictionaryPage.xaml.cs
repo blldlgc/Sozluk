@@ -33,10 +33,21 @@ public partial class DictionaryPage : ContentPage
 
 	private async void WordsListView_ItemTapped(object sender, ItemTappedEventArgs e)
 	{
-		// Kelime detay sayfasını tıklanan kelimeyi paramete göndererek açar
-        var item = (Dictionary)e.Item;
-        var quizDates = await _localDatabaseService.GetQuizDatesForWord(item);
-        
-        await Navigation.PushAsync(new WordDetailPage(item,quizDates));
+
+        if (WordsListView.IsEnabled)
+        {
+            WordsListView.IsEnabled = false; // ListView öğesini devre dışı bırak
+            try
+            {
+                // Kelime detay sayfasını tıklanan kelimeyi paramete göndererek açar
+                var item = (Dictionary)e.Item;
+                var quizDates = await _localDatabaseService.GetQuizDatesForWord(item);
+                await Navigation.PushAsync(new WordDetailPage(item, quizDates));
+            }
+            finally
+            {
+                WordsListView.IsEnabled = true; // ListView öğesini tekrar etkinleştir
+            }
+        }
     }
 }

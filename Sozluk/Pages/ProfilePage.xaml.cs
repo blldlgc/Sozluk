@@ -29,6 +29,8 @@ public partial class ProfilePage : ContentPage
         LocalDatabaseService _localDatabaseService = new LocalDatabaseService();
 
         DisplayUsername();
+        int dailyWordCount = await _localDatabaseService.GetDailyWordCount();
+        wordCountStepper.Value = dailyWordCount;
     }
 
     private void DisplayUsername()
@@ -48,18 +50,13 @@ public partial class ProfilePage : ContentPage
         Shell.Current.GoToAsync("//LoginPage");
 
     }
+
     private async void SaveButtonClicked(object sender, EventArgs e)
     {
-        if (int.TryParse(dailyWordCountEntry.Text, out int dailyWordCount))
-        {
-            await _localDatabaseService.SaveDailyWordCount(dailyWordCount);
-            await _localDatabaseService.SaveAndUpdateDailyWordCount(dailyWordCount);
-            await DisplayAlert("Başarılı", "Günlük kelime sayısı kaydedildi.", "Tamam");
-        }
-        else
-        {
-            await DisplayAlert("Hata", "Geçerli bir sayı girin.", "Tamam");
-        }
+        int dailyWordCount = (int)wordCountStepper.Value;
+        await _localDatabaseService.SaveDailyWordCount(dailyWordCount);
+        await _localDatabaseService.SaveAndUpdateDailyWordCount(dailyWordCount);
+        await DisplayAlert("Başarılı", "Günlük kelime sayısı kaydedildi.", "Tamam");
     }
 
     private async Task<string> ReadHtmlContentFromFileAsync(string filePath)
@@ -79,7 +76,7 @@ public partial class ProfilePage : ContentPage
 
     private async void AddWord_Clicked(object sender, EventArgs e)
     {
-        
+        await DisplayAlert("Kelime Ekleme İşlemi", "Kelimeler veritabanına eklenmeye başladı, liste büyük olduğu için işlem uzun sürebilir, kelimeler eklenirken uygulamamızı dilediğinizce kullanabilirsiniz :)", "Tamam");
         using var stream = await FileSystem.Current.OpenAppPackageFileAsync("WordList.html"); // Dosya adını doğru yazdığınızdan emin olun
         using var reader = new StreamReader(stream);
         string htmlContent = await reader.ReadToEndAsync();

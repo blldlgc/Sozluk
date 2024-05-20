@@ -5,8 +5,10 @@
              Title="Quiz Test Sayfası">
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="QuestionLabel" Text="Soru" FontSize="20"  HorizontalOptions="Center" />
-
+            <Image x:Name="PictureImage" Aspect="AspectFit" MaximumHeightRequest="250" MaximumWidthRequest="300" Margin="2,10,2,10"/>
+            <Label x:Name="QuestionLabel" Text="Soru" FontSize="20"  HorizontalOptions="Center" Margin="2,10,2,10" />
+            <Label  Text="Yukarıdaki kelimenin anlamını" FontSize="20"  HorizontalOptions="Center" Margin="2,10,2,0" HorizontalTextAlignment="Center"/>
+            <Label  Text="işaretleyiniz." FontSize="20"  HorizontalOptions="Center" Margin="2,0,2,20" HorizontalTextAlignment="Center"/>
             <Button x:Name="AnswerButton1"
                 Text="Cevap 1"
                 Clicked="AnswerButtonClicked"

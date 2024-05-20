@@ -21,16 +21,22 @@
 
             <Label
                 x:Name="WelcomeText"
-                Text="Sözlük-Quiz Uygulamasına Hoşgeldiniz"
+                Text="Sözlük-Quiz Uygulamasına Hoşgeldiniz "
                 Style="{StaticResource SubHeadline}"
                  />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+            <Label
+                
+                Text="Hadi öğrenmeye başlayalım! 👊🏻"
+                Style="{StaticResource SubHeadline}"
+                FontSize="Medium"
+                />
+            <Label
+                Text="👤 Profil sekmesinden günde kaç yeni kelime öğrenmek istediğinizi seçebilir ve hazır kelimelerimizi veritabanına ekleyebilir, sözlük 📚 sekmesinden istediğiniz kelimeleri ekleyebilir 🖊, Quiz sekmesinden test olabilir📝 ve  istatistikler sayfasından da öğrenme durumunuzu görüntüleyebilirsiniz 📊."
+                Style="{StaticResource SubHeadline}"
+                FontSize="Small"
+                />
+
         </VerticalStackLayout>
     </ScrollView>
 

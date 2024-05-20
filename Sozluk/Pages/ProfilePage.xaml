@@ -14,16 +14,17 @@
         <Label Text="Günlük Kelime Sayısını Ayarla" 
                HorizontalOptions="Center"
                VerticalOptions="CenterAndExpand" />
+        <Label HorizontalOptions="Center"
+            FontSize="Large"
+            FontAttributes="Bold"
+            BindingContext="{x:Reference wordCountStepper}" 
+            Text="{Binding Value}" />
         <Stepper x:Name="wordCountStepper" 
                 HorizontalOptions="Center"
                 Minimum="1" 
-                Maximum="10"
-                Value="2" />
-        <Entry x:Name="dailyWordCountEntry" 
-               Placeholder="Günlük kelime sayısı"
-               Keyboard="Numeric"
-               MaximumWidthRequest="300"
-               Margin="5,5,5,5"/>
+                Maximum="30"
+                Value="2" 
+                />     
         <Button Text="Kaydet" 
                 Clicked="SaveButtonClicked" 
                 MaximumWidthRequest="300"
