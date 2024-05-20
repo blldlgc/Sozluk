@@ -88,7 +88,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="PDF İndir" x:Name="button" Clicked="DownloadButtonClicked" Margin="0,10,0,0" />
+        <Button Text="Analiz Raporu İndir" x:Name="button" Clicked="DownloadButtonClicked" Margin="0,10,0,0" />
         <ActivityIndicator x:Name="activity" />
     </StackLayout>
 </ContentPage>

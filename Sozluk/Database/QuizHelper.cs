@@ -186,33 +186,35 @@ namespace Sozluk.Database
         {
             var totalStats = new Stats();
             var allQuizdates = await _connection.Table<QuizDates>().ToListAsync();
+            var allStats = await _connection.Table<Stats>().ToListAsync();
 
             foreach (var quizDate in allQuizdates)
             {
                 switch (quizDate.Level)
                 {
-                    case 1:
+                    case 2:
                         totalStats.Level1Count++;
                         break;
-                    case 2:
+                    case 3:
                         totalStats.Level2Count++;
                         break;
-                    case 3:
+                    case 4:
                         totalStats.Level3Count++;
                         break;
-                    case 4:
+                    case 5:
                         totalStats.Level4Count++;
                         break;
-                    case 5:
+                    case 6:
                         totalStats.Level5Count++;
                         break;
-                    case 6:
+                    case 7:
                         totalStats.Level6Count++;
                         break;
-                    case 7:
-                        totalStats.Level7Count++;
-                        break;
                 }
+            }
+            foreach (var stats in allStats)
+            {
+                totalStats.Level1Count += stats.Level1Count;
             }
             return totalStats;
         }

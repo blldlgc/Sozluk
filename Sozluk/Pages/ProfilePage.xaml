@@ -14,6 +14,11 @@
         <Label Text="Günlük Kelime Sayısını Ayarla" 
                HorizontalOptions="Center"
                VerticalOptions="CenterAndExpand" />
+        <Stepper x:Name="wordCountStepper" 
+                HorizontalOptions="Center"
+                Minimum="1" 
+                Maximum="10"
+                Value="2" />
         <Entry x:Name="dailyWordCountEntry" 
                Placeholder="Günlük kelime sayısı"
                Keyboard="Numeric"
