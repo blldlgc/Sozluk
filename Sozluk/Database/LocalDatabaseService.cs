@@ -321,14 +321,19 @@ namespace Sozluk.Database
                     response.EnsureSuccessStatusCode();
 
                     var imageData = await response.Content.ReadAsByteArrayAsync();
-                    string filePath = $"path/to/save/{Guid.NewGuid()}.jpg"; // Dosya yolu düzenlenmeli
+                    string directoryPath = Path.Combine(FileSystem.AppDataDirectory, "images");
 
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
+
+                    string filePath = Path.Combine(directoryPath, $"{Guid.NewGuid()}.jpg");
                     await File.WriteAllBytesAsync(filePath, imageData);
                     return filePath;
                 }
                 catch (Exception ex)
                 {
-                    // Hata yönetimi
                     Console.WriteLine($"Error downloading image: {ex.Message}");
                     return null;
                 }
