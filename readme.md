@@ -5,7 +5,7 @@ Uygulama, temel olarak kelime ekleme ve quiz modüllerinden oluşmaktadır. Kull
 
 Kullanıcı profil kısmından günde kaç yeni kelime öğrenmek istediğini seçebilir, istatistikler kısmından hangi gün kaç kelime bildiğini ve toplam doğru cevapladığı kelime sayısılarını seviyelerine göre görebilmektedir. 
 
-Proje .NET MAUİ Multiplatform kullanılarak geliştirilmiştir. Tasarım Android'e yönelik düzenlenmiştir. 
+Proje .NET MAUİ Multiplatform kullanılarak geliştirilmiştir. Tasarım Android'e yönelik düzenlenmiştir. Kullanıcı kayıt, giriş ve şifre yenileme işlemlerinde Firebase Authenticator kütüphaneleri kullanılmıştır.
 ## Geliştiriciler
 
 - [@Blldlgc](https://github.com/blldlgc) - Bilal Dalgıç
