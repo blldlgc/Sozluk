@@ -25,8 +25,6 @@ public partial class WordAddingPage : ContentPage
         _localDatabaseService = new LocalDatabaseService();
     }
 
-
-
     private async void SaveBtnClicked(object sender, EventArgs e)
     {
         // Kaydet butonuna basıldığında kelimeyi veritabanına ekler

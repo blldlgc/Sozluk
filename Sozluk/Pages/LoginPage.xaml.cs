@@ -17,8 +17,6 @@ public partial class LoginPage : ContentPage
         this.BindingContext = this;
     }
 
-
-
     private void ButtonClickedLoginStack(object sender, EventArgs e)
     {
         //Giriş yapma ekranını açar
@@ -40,7 +38,6 @@ public partial class LoginPage : ContentPage
         await Navigation.PushAsync(new ResetPasswordPage());
 
     }
-
     private async void ButtonClickedSignIn(object sender, EventArgs e)
     {
         // Buton tıklandığında bekleme göstergesini görünür yap
@@ -79,8 +76,6 @@ public partial class LoginPage : ContentPage
         loadingIndicator.IsVisible = false;
         loadingGrid.IsVisible = false;
 
-
-
         if (auth == null)
         {
              await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
@@ -89,8 +84,6 @@ public partial class LoginPage : ContentPage
         {
             await App.Current.MainPage.DisplayAlert("Giriş Yap", auth?.GetStatusMessage(), "OK");
         }
-        
-
-        
+           
     }
 }

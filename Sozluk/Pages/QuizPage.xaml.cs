@@ -26,11 +26,10 @@ public partial class QuizPage : ContentPage
         base.OnAppearing();
         wordIds = new List<int>();
 
-        wordCount = await _localDatabaseService.GetDailyWordCount();
+        wordCount = await _localDatabaseService.GetDailyWordCount(); // Bugün sorulacak kelime sayısını al
         dailyWordCountLabel.Text = $"Bugün ilk defa sorulacak kelime sayısı: {wordCount}";
-        //await _localDatabaseService.SaveAndUpdateDailyWordCount(wordCount);
-        await _localDatabaseService.InitializeDailyWordCount();
-        quizCount = await _localDatabaseService.GetDailyQuizCount();
+        await _localDatabaseService.InitializeDailyWordCount(); // Bugün sorulacak kelime sayısını ayarla
+        quizCount = await _localDatabaseService.GetDailyQuizCount(); // Bugün sorulacak kelime sayısını al
         dailyQuizCountLabel.Text = $"Kalan kelime sayısı: {quizCount}";
 
         for (int i = 1; i <= 7; i++)

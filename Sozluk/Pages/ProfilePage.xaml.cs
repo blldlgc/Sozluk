@@ -25,7 +25,7 @@ public partial class ProfilePage : ContentPage
     protected override async void OnAppearing()
     {
         
-        base.OnAppearing();
+        base.OnAppearing(); 
         LocalDatabaseService _localDatabaseService = new LocalDatabaseService();
 
         DisplayUsername();
@@ -35,6 +35,7 @@ public partial class ProfilePage : ContentPage
 
     private void DisplayUsername()
     {
+        // Kullanıcı adını ekrana yazdır
             UsernameLabel.Text = "Merhaba " + FirebaseAuthHelper.CurrentUsername + "!";     
     }
 
@@ -53,6 +54,7 @@ public partial class ProfilePage : ContentPage
 
     private async void SaveButtonClicked(object sender, EventArgs e)
     {
+        // Günlük kelime sayısını kaydet
         int dailyWordCount = (int)wordCountStepper.Value;
         await _localDatabaseService.SaveDailyWordCount(dailyWordCount);
         await _localDatabaseService.SaveAndUpdateDailyWordCount(dailyWordCount);
@@ -77,7 +79,7 @@ public partial class ProfilePage : ContentPage
     private async void AddWord_Clicked(object sender, EventArgs e)
     {
         await DisplayAlert("Kelime Ekleme İşlemi", "Kelimeler veritabanına eklenmeye başladı, liste büyük olduğu için işlem uzun sürebilir, kelimeler eklenirken uygulamamızı dilediğinizce kullanabilirsiniz :)", "Tamam");
-        using var stream = await FileSystem.Current.OpenAppPackageFileAsync("WordList.html"); // Dosya adını doğru yazdığınızdan emin olun
+        using var stream = await FileSystem.Current.OpenAppPackageFileAsync("WordList.html"); 
         using var reader = new StreamReader(stream);
         string htmlContent = await reader.ReadToEndAsync();
 
@@ -87,7 +89,6 @@ public partial class ProfilePage : ContentPage
             var parser = new LocalDatabaseService.HtmlTableParser();
 
             // HTML içeriğini işle ve Dictionary listesi al
-            //List<Dictionary> dictionaryList = parser.ParseHtmlTable(htmlContent);
             List<Dictionary> dictionaryList = await parser.ParseHtmlTable(htmlContent);
 
             // Elde edilen Dictionary listesini veritabanına ekleyebilirsiniz

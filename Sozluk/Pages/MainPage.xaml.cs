@@ -28,12 +28,7 @@ namespace Sozluk.Pages
             base.OnAppearing();
             
         }
-
-
-
-
-        
-        
+      
     }
 
 }

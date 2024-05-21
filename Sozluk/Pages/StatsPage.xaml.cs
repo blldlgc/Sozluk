@@ -19,10 +19,10 @@ public partial class StatsPage : ContentPage
         InitializeComponent();
         var databaseService = new LocalDatabaseService();
         _quizHelper = new QuizHelper(databaseService.GetConnection());
-        ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+        ComponentInfo.SetLicense("FREE-LIMITED-KEY"); //pdf kütüphanesi için lisans anahtarı
     }
 
-    protected override async void OnAppearing()
+    protected override async void OnAppearing() // Sayfa açıldığında yapılacak işlemler
     {
         base.OnAppearing();
         await LoadStatsAsync();
@@ -44,7 +44,7 @@ public partial class StatsPage : ContentPage
 
        
     }
-    private async Task<string> CreateDocumentAsync()
+    private async Task<string> CreateDocumentAsync() // Pdf dosyasını oluşturur
     {
         var totalStats = await _quizHelper.GetTotalStatsAsync();
         var dailyStats = await _quizHelper.GetDailyStatsAsync();
@@ -89,7 +89,7 @@ public partial class StatsPage : ContentPage
         return filePath;
     }
 
-    private async void DownloadButtonClicked(object sender, EventArgs e)
+    private async void DownloadButtonClicked(object sender, EventArgs e) 
     {
         
 
@@ -98,12 +98,12 @@ public partial class StatsPage : ContentPage
 
         try
         {
-            var filePath = await CreateDocumentAsync();
-            await Launcher.OpenAsync(new OpenFileRequest(Path.GetFileName(filePath), new ReadOnlyFile(filePath)));
+            var filePath = await CreateDocumentAsync(); // Dosya oluşturma metodu çağrılır
+            await Launcher.OpenAsync(new OpenFileRequest(Path.GetFileName(filePath), new ReadOnlyFile(filePath))); 
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", ex.Message, "Close");
+            await DisplayAlert("Error", ex.Message, "Close"); // Hata mesajı gösterir
         }
 
         activity.IsRunning = false;

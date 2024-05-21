@@ -340,8 +340,6 @@ namespace Sozluk.Database
             }
         }
 
-
-
         public async Task<Models.Dictionary> GetDictionaryById(int id)
         {
             return await _connection.Table<Models.Dictionary>().Where(x => x.Id == id).FirstOrDefaultAsync();
@@ -380,12 +378,6 @@ namespace Sozluk.Database
                 //App.Current.MainPage.DisplayAlert("Bilgi", $"{dictionary.Word} kelimesi zaten sözlükte mevcut!", "Tamam");
             }
 
-        }
-
-
-        public async Task Update(Models.Dictionary dictionary)
-        {
-            await _connection.UpdateAsync(dictionary);
         }
 
         public async Task Delete(Models.Dictionary dictionary, Models.QuizDates quizdates)

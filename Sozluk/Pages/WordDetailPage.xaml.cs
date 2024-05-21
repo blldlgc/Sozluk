@@ -53,11 +53,6 @@ public partial class WordDetailPage : ContentPage
             }
         }
     }
-
-    
-
-
-
     private void WordTTSButton_Clicked(object sender, EventArgs e)
     {
         TextToSpeech.SpeakAsync(_word.Word);
