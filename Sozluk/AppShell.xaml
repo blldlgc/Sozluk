@@ -31,7 +31,7 @@
         Route="QuizTestPage"
         Shell.FlyoutItemIsVisible="False"/>
 
-    <TabBar>
+    <TabBar >
         
         <ShellContent
             Title="Ana Sayfa"
