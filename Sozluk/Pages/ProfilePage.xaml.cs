@@ -13,18 +13,14 @@ public partial class ProfilePage : ContentPage
     public ProfilePage()
     {
         InitializeComponent();
-        _localDatabaseService = new LocalDatabaseService();
+        _localDatabaseService = new LocalDatabaseService(); // Veritabanı işlemleri için LocalDatabaseService sınıfından nesne oluşturulur
     }
-
-
     public ProfilePage(FirebaseAuthHelper firebaseAuthHelper) : this()
     {
         _authHelper = firebaseAuthHelper;
     }
-
     protected override async void OnAppearing()
-    {
-        
+    { 
         base.OnAppearing(); 
         LocalDatabaseService _localDatabaseService = new LocalDatabaseService();
 
@@ -42,11 +38,9 @@ public partial class ProfilePage : ContentPage
 
     private void Signout_Clicked(object sender, EventArgs e)
 	{
+        // Çıkış yapma işlemi
         _localDatabaseService?.Dispose();
-        
         _authHelper.signOut();
-        //Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-
         Application.Current.MainPage = new AppShell();
         Shell.Current.GoToAsync("//LoginPage");
 
@@ -54,27 +48,13 @@ public partial class ProfilePage : ContentPage
 
     private async void SaveButtonClicked(object sender, EventArgs e)
     {
-        // Günlük kelime sayısını kaydet
+        // Günlük kelime sayısını kaydetme işlemi
         int dailyWordCount = (int)wordCountStepper.Value;
         await _localDatabaseService.SaveDailyWordCount(dailyWordCount);
         await _localDatabaseService.SaveAndUpdateDailyWordCount(dailyWordCount);
         await DisplayAlert("Başarılı", "Günlük kelime sayısı kaydedildi.", "Tamam");
     }
 
-    private async Task<string> ReadHtmlContentFromFileAsync(string filePath)
-    {
-        try
-        {
-            // Dosya yolundaki metin dosyasını oku
-            string htmlContent = await File.ReadAllTextAsync(filePath);
-            return htmlContent;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error reading HTML content from file: {ex.Message}");
-            return null;
-        }
-    }
 
     private async void AddWord_Clicked(object sender, EventArgs e)
     {

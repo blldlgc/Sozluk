@@ -82,27 +82,6 @@ public class FirebaseAuthHelper
         Preferences.Default.Set<bool>(AuthKey, false);
     }
 
-
-    public async Task<bool> IsAuthenticated()
-    {
-        
-
-
-        try
-        {
-            await Task.Delay(1000);
-            var user = client.User;
-
-            return user != null;
-
-        }
-        catch (Exception)
-        {
-            return false;
-        }
-       
-    }
-
     public async Task<string?> ResetPassword(string email)
     {
         try

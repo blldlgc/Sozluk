@@ -9,20 +9,14 @@ public partial class QuizPage : ContentPage
     private int quizCount;
     private int wordCount;
     private List<int> wordIds;
-
-
-
     public QuizPage()
 	{
         _localDatabaseService = new LocalDatabaseService();
         InitializeComponent();
-        
-
     }
-
     protected override async void OnAppearing()
     {
-        
+        // Sayfa açıldığında çalışacak kodlar
         base.OnAppearing();
         wordIds = new List<int>();
 
@@ -34,33 +28,27 @@ public partial class QuizPage : ContentPage
 
         for (int i = 1; i <= 7; i++)
         {
-            LoadWordsByLevel(i);
+            LoadWordsByLevel(i);// Her seviyedeki kelimeleri yükleme işlemi
 
         }
     }
 
-
-
     private async void StartQuizBtnClicked(object sender, EventArgs e)
     {
+        // Quiz sayfasına gitme işlemi
         await Navigation.PushAsync(new QuizTestPage(wordIds)) ;
-        
     }
 
     private async void LoadWordsByLevel(int level)
     {
-        // Kelimeleri al
+        // Kelimeleri alır ve sayılarını ekrana yazdırır
         var words = await _localDatabaseService.GetWordsByLevel(level, quizCount);
         int wordCounts = words.Count();
-
-        var wordList = string.Join(", ", words.Select(w => w.WordId));
-
+        var wordList = string.Join(", ", words.Select(w => w.WordId)); // Kelimeleri ayır ve virgülle birleştir
         wordIds.AddRange(words.Select(w => w.WordId)); // wordIds listesine ekle
-
 
         var label = (Label)FindByName($"wordLabel{level}");
         label.Text = $"Level {level} kelime sayısı: {wordCounts}";
-
     }
 
 

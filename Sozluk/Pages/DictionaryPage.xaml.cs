@@ -11,8 +11,7 @@ public partial class DictionaryPage : ContentPage
 	
     public DictionaryPage()
     {
-        InitializeComponent();
-		
+        InitializeComponent();	
     }
 
 	protected override async void OnAppearing()
@@ -36,7 +35,7 @@ public partial class DictionaryPage : ContentPage
 
         if (WordsListView.IsEnabled)
         {
-            WordsListView.IsEnabled = false; // ListView öğesini devre dışı bırak
+            WordsListView.IsEnabled = false; // ListView öğesini devre dışı bırakır(2 kere tıklamayı önlemek için)
             try
             {
                 // Kelime detay sayfasını tıklanan kelimeyi paramete göndererek açar
@@ -46,7 +45,7 @@ public partial class DictionaryPage : ContentPage
             }
             finally
             {
-                WordsListView.IsEnabled = true; // ListView öğesini tekrar etkinleştir
+                WordsListView.IsEnabled = true; // ListView öğesini tekrar etkinleştirir
             }
         }
     }

@@ -36,24 +36,24 @@ namespace Sozluk.Pages
             {
                 if (currentWordIndex < wordIds.Count)
                 {
-                    // WordId'ye göre kelimeyi al
+                    // WordId'ye göre kelimeyi alır
                     var currentWord = await _localDatabaseService.GetDictionaryById(wordIds[currentWordIndex]);
 
-                    // Soruyu ekrana yaz
+                    // Soruyu ekrana yazar
                     QuestionLabel.Text = currentWord.Word;
                     PictureImage.Source = ImageSource.FromFile(currentWord.Image);
 
-                    // Cevap seçeneklerini oluştur
+                    // Cevap seçeneklerini oluşturur
                     List<string> answerOptions = new List<string> { currentWord.Meaning };
 
-                    // Veritabanından rastgele 3 anlam daha çek
-                    var randomMeanings = await _localDatabaseService.GetRandomMeanings(3, currentWord.Meaning);
+                    // Veritabanından rastgele 3 anlam daha çeker
+                    var randomMeanings = await _quizHelper.GetRandomMeanings(3, currentWord.Meaning);
                     answerOptions.AddRange(randomMeanings);
 
-                    // Cevap seçeneklerini karıştır
+                    // Cevap seçeneklerini karıştırır
                     var shuffledOptions = answerOptions.OrderBy(x => Guid.NewGuid()).ToList();
 
-                    // Cevap seçeneklerini butonlara ata
+                    // Cevap seçeneklerini butonlara ataar
                     for (int i = 0; i < answerButtons.Count; i++)
                     {
                         answerButtons[i].Text = shuffledOptions[i];
@@ -80,29 +80,28 @@ namespace Sozluk.Pages
 
         private async void AnswerButtonClicked(object sender, EventArgs e)
         {
+            // Butona tıklanınca çalışacak kodlar
             Button selectedButton = (Button)sender;
             var currentWord = await _localDatabaseService.GetDictionaryById(wordIds[currentWordIndex]);
-
-            
             var quizdates = await _localDatabaseService.GetQuizDatesForWord(currentWord);
             
             if (quizdates.Level == 1)
             {
-                // GÜnlük kalan kelime sayısını azaltır
+                // GÜnlük kalan level1 kelime sayısını azaltır
                 await _localDatabaseService.DecreaseDailyWordCount();
-                await _localDatabaseService.UpdateQuizDates(currentWord.Id);
+                await _quizHelper.UpdateQuizDates(currentWord.Id);
             }
 
             if (selectedButton.Text == currentWord.Meaning)
             {
                 await DisplayAlert("Doğru!", "Doğru cevabı seçtiniz.", "Tamam");
-
                 // Kelime seviyesini yükselt
-                await _localDatabaseService.UpdateLevel(currentWord.Id);
+                await _quizHelper.UpdateLevel(currentWord.Id);
                 await _quizHelper.IncrementStats(quizdates.Level);
             }
             else
             {
+                // Yanlış cevap seçildiyse leveli sıfırlar
                 await DisplayAlert("Yanlış!", "Yanlış cevabı seçtiniz.", "Tamam");
                 await _quizHelper.ResetLevelAndDates(currentWord.Id);
             }

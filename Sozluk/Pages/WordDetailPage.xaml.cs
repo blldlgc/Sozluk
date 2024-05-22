@@ -14,9 +14,6 @@ public partial class WordDetailPage : ContentPage
 
         _word = word;
         _quizDates = quizDates;
-
-        
-
         // Detayları görüntüle
         ShowWordDetails(word);
         ShowQuizDetails(quizDates);
@@ -35,7 +32,7 @@ public partial class WordDetailPage : ContentPage
             // Dictionary sınıfından gelen özellikleri kullanarak detayları görüntüle
             LevelLabel.Text = "Seviye: " + quizDates.Level;
             
-            for (int i = 1; i <= 7; i++)
+            for (int i = 1; i <= 7; i++) // Kelimenin sorulacağı 7 tarihin gösterilmesi
             {
                 var dateProperty = typeof(QuizDates).GetProperty("date" + i);
                 var date = (DateTime)dateProperty.GetValue(quizDates);

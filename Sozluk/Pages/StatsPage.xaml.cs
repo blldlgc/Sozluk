@@ -16,6 +16,7 @@ public partial class StatsPage : ContentPage
 
     public StatsPage()
     {
+        // Sayfa oluşturulduğunda veritabanı servisini ve QuizHelper nesnesini oluştur
         InitializeComponent();
         var databaseService = new LocalDatabaseService();
         _quizHelper = new QuizHelper(databaseService.GetConnection());
@@ -24,13 +25,15 @@ public partial class StatsPage : ContentPage
 
     protected override async void OnAppearing() // Sayfa açıldığında yapılacak işlemler
     {
+        // İstatistikleri yükleme işlemi
         base.OnAppearing();
         await LoadStatsAsync();
     }
 
     private async Task LoadStatsAsync()
     {
-        var totalStats = await _quizHelper.GetTotalStatsAsync(); // TotalStats nesnesini al
+        // Toplam ve günlük istatistikleri yükleme ve ekrana yazdırma işlemi
+        var totalStats = await _quizHelper.GetTotalStatsAsync(); // TotalStats nesnesini alır
         totalLevel1CountLabel.Text = totalStats.Level1Count.ToString();
         totalLevel2CountLabel.Text = totalStats.Level2Count.ToString();
         totalLevel3CountLabel.Text = totalStats.Level3Count.ToString();
@@ -39,10 +42,8 @@ public partial class StatsPage : ContentPage
         totalLevel6CountLabel.Text = totalStats.Level6Count.ToString();
         totalLevel7CountLabel.Text = totalStats.Level7Count.ToString();
 
-        var dailyStats = await _quizHelper.GetDailyStatsAsync(); // DailyStats listesini al
-        dailyStatsListView.ItemsSource = dailyStats;
-
-       
+        var dailyStats = await _quizHelper.GetDailyStatsAsync(); // DailyStats listesini alır
+        dailyStatsListView.ItemsSource = dailyStats;  
     }
     private async Task<string> CreateDocumentAsync() // Pdf dosyasını oluşturur
     {
@@ -91,11 +92,8 @@ public partial class StatsPage : ContentPage
 
     private async void DownloadButtonClicked(object sender, EventArgs e) 
     {
-        
-
         button.IsEnabled = false;
         activity.IsRunning = true;
-
         try
         {
             var filePath = await CreateDocumentAsync(); // Dosya oluşturma metodu çağrılır
@@ -105,12 +103,7 @@ public partial class StatsPage : ContentPage
         {
             await DisplayAlert("Error", ex.Message, "Close"); // Hata mesajı gösterir
         }
-
         activity.IsRunning = false;
         button.IsEnabled = true;
     }
-
-    
-
-
 }

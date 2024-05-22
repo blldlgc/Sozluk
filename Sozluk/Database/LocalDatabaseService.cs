@@ -17,8 +17,6 @@ namespace Sozluk.Database
         
         private readonly SQLiteAsyncConnection _connection;
         private readonly QuizHelper _QuizHelper;
-
-
         public LocalDatabaseService()
         {
             
@@ -88,54 +86,6 @@ namespace Sozluk.Database
             {
                 Console.WriteLine("Error occurred while fetching QuizDates for word: " + ex.Message);
                 return null; // Hata durumunda null döndür
-            }
-        }
-
-        public async Task UpdateQuizDates(int wordId)
-        {
-            
-
-            // Get existing QuizDates record for the word
-            var existingDates = await _connection.Table<QuizDates>().Where(q => q.WordId == wordId).FirstOrDefaultAsync();
-
-            if (existingDates == null)
-            {
-                // Create a new QuizDates record if it doesn't exist
-                existingDates = new QuizDates { WordId = wordId };
-            }
-
-            var today = DateTime.Today;
-
-            // Update each date property with the corresponding new date
-            existingDates.date1 = today;
-            existingDates.date2 = today.AddDays(1);
-            existingDates.date3 = today.AddDays(7);
-            existingDates.date4 = today.AddMonths(1);
-            existingDates.date5 = today.AddMonths(3);
-            existingDates.date6 = today.AddMonths(6);
-            existingDates.date7 = today.AddYears(1);
-
-            // Update the entire record in the database
-            await _connection.UpdateAsync(existingDates);
-        }
-
-        public async Task UpdateLevel(int wordId)
-        {
-            var quizDates = await _connection.Table<QuizDates>().Where(q => q.WordId == wordId).FirstOrDefaultAsync();
-
-            if (quizDates != null)
-            {
-                // Get the current level
-                int currentLevel = quizDates.Level;
-
-                if (currentLevel == 1) { UpdateQuizDates(wordId); }
-
-                // Increase the level by 1
-                int newLevel = currentLevel + 1;
-
-                // Update the level in the database
-                quizDates.Level = newLevel;
-                await _connection.UpdateAsync(quizDates);
             }
         }
 
@@ -349,17 +299,6 @@ namespace Sozluk.Database
         {
             return await _connection.Table<Models.Dictionary>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
-
-        public async Task<List<string>> GetRandomMeanings(int count, string excludeMeaning)
-        {
-            var allMeanings = await _connection.Table<Models.Dictionary>()
-                                               .Where(x => x.Meaning != excludeMeaning)
-                                               .ToListAsync();
-
-            var randomMeanings = allMeanings.OrderBy(x => Guid.NewGuid()).Take(count).Select(x => x.Meaning).ToList();
-            return randomMeanings;
-        }
-
         public async Task Create(Models.Dictionary dictionary)
         {
             var existingWord = await _connection.Table<Models.Dictionary>()
@@ -372,12 +311,6 @@ namespace Sozluk.Database
                 await _connection.InsertAsync(dictionary);
                 await Create(new QuizDates { WordId = dictionary.Id, Level = 1 });
             }
-            else
-            {
-                // Kelime varsa, isteğe bağlı olarak kullanıcıya bilgi verebilirsiniz:
-                //App.Current.MainPage.DisplayAlert("Bilgi", $"{dictionary.Word} kelimesi zaten sözlükte mevcut!", "Tamam");
-            }
-
         }
 
         public async Task Delete(Models.Dictionary dictionary, Models.QuizDates quizdates)

@@ -14,9 +14,9 @@ public partial class WordAddingPage : ContentPage
 
     public WordAddingPage(LocalDatabaseService dbService)
 	{
+        // Veritabanı işlemleri için LocalDatabaseService sınıfından nesne oluşturulur
 		InitializeComponent();
         _localDatabaseService = dbService;
-        
     }
 
     public WordAddingPage()
@@ -34,17 +34,17 @@ public partial class WordAddingPage : ContentPage
             if (string.IsNullOrWhiteSpace(nameEntryField.Text))
             {
                 await App.Current.MainPage.DisplayAlert("Hata", "Lütfen kelime girin.", "Tamam");
-                return; // İşlem durdurulur
+                return;
             }
             if (string.IsNullOrWhiteSpace(meaningEntryField.Text))
             {
                 await App.Current.MainPage.DisplayAlert("Hata", "Lütfen anlam girin.", "Tamam");
-                return; // İşlem durdurulur
+                return;
             }
             if (string.IsNullOrWhiteSpace(exampleEntryField.Text))
             {
                 await App.Current.MainPage.DisplayAlert("Hata", "Lütfen örnek girin.", "Tamam");
-                return; // İşlem durdurulur
+                return; 
             }
             await _localDatabaseService.Create(new Models.Dictionary
             {
@@ -54,7 +54,7 @@ public partial class WordAddingPage : ContentPage
                 Image = imagePath
             });
             int wordId = await getId(nameEntryField.Text);
-            App.Current.MainPage.DisplayAlert("Kelime veritabanına başarıyla eklendi","Kelime Id'si:"+ wordId.ToString(), "Tamam"); //TODO silinecek
+            App.Current.MainPage.DisplayAlert("Kelime veritabanına başarıyla eklendi","Kelime Id'si:"+ wordId.ToString(), "Tamam");
             
         }
         catch (Exception ex)
@@ -70,16 +70,10 @@ public partial class WordAddingPage : ContentPage
         // Veritabanında kelimenin ID'sini almak için sorgu yapılır
         var dictionary = (await _localDatabaseService.GetDictionary()).FirstOrDefault(d => d.Word == word);
 
-       
-
         // Kelime bulunduysa ID'si döndürülür, bulunamadıysa -1 döndürülür veya hata durumunda -1 döndürülür.
         return dictionary != null ? dictionary.Id : -1;
         
     }
-
-
-
-
     private async void PhotoBtnClicked(object sender, EventArgs e)
     {
         try

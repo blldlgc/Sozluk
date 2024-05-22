@@ -17,16 +17,8 @@ namespace Sozluk.Pages
             WelcomeText.Text = "Sözlük-Quiz Uygulamasına Hoşgeldiniz " + FirebaseAuthHelper.CurrentUsername + "! 👋";
             var databaseService = new LocalDatabaseService();
             _quizHelper = new QuizHelper(databaseService.GetConnection());
-            _quizHelper.ResetOldDays();
-            
-            
-        }
-
-        protected override async void OnAppearing()
-        {
-
-            base.OnAppearing();
-            
+            _quizHelper.ResetOldDays(); // Önceki çözülmeyen günlerdeki soruların sıfırlanması
+     
         }
       
     }

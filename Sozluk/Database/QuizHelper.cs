@@ -62,6 +62,54 @@ namespace Sozluk.Database
             return words;
         }
 
+        public async Task UpdateQuizDates(int wordId)
+        {
+
+
+            // Get existing QuizDates record for the word
+            var existingDates = await _connection.Table<QuizDates>().Where(q => q.WordId == wordId).FirstOrDefaultAsync();
+
+            if (existingDates == null)
+            {
+                // Create a new QuizDates record if it doesn't exist
+                existingDates = new QuizDates { WordId = wordId };
+            }
+
+            var today = DateTime.Today;
+
+            // Update each date property with the corresponding new date
+            existingDates.date1 = today;
+            existingDates.date2 = today.AddDays(1);
+            existingDates.date3 = today.AddDays(7);
+            existingDates.date4 = today.AddMonths(1);
+            existingDates.date5 = today.AddMonths(3);
+            existingDates.date6 = today.AddMonths(6);
+            existingDates.date7 = today.AddYears(1);
+
+            // Update the entire record in the database
+            await _connection.UpdateAsync(existingDates);
+        }
+
+        public async Task UpdateLevel(int wordId)
+        {
+            var quizDates = await _connection.Table<QuizDates>().Where(q => q.WordId == wordId).FirstOrDefaultAsync();
+
+            if (quizDates != null)
+            {
+                // Get the current level
+                int currentLevel = quizDates.Level;
+
+                if (currentLevel == 1) { UpdateQuizDates(wordId); }
+
+                // Increase the level by 1
+                int newLevel = currentLevel + 1;
+
+                // Update the level in the database
+                quizDates.Level = newLevel;
+                await _connection.UpdateAsync(quizDates);
+            }
+        }
+
         public async Task ResetLevelAndDates(int id)
         {
             var quizDates = await _connection.Table<QuizDates>().Where(q => q.WordId == id).FirstOrDefaultAsync();
@@ -79,6 +127,16 @@ namespace Sozluk.Database
             quizDates.date7 = DateTime.MinValue;
             await _connection.UpdateAsync(quizDates);
 
+        }
+
+        public async Task<List<string>> GetRandomMeanings(int count, string excludeMeaning)
+        {
+            var allMeanings = await _connection.Table<Models.Dictionary>()
+                                               .Where(x => x.Meaning != excludeMeaning)
+                                               .ToListAsync();
+
+            var randomMeanings = allMeanings.OrderBy(x => Guid.NewGuid()).Take(count).Select(x => x.Meaning).ToList();
+            return randomMeanings;
         }
 
         public async Task ResetOldDays()
@@ -222,9 +280,5 @@ namespace Sozluk.Database
         {
             return await _connection.Table<Stats>().OrderByDescending(s => s.Date).ToListAsync();
         }
-
-
-
-
     }
 }
