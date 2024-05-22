@@ -55,7 +55,7 @@ public partial class StatsPage : ContentPage
         var totalPage = document.Pages.Add();
         using (var formattedText = new PdfFormattedText())
         {
-            formattedText.FontFamily = new PdfFontFamily("Helvatica");
+            formattedText.FontFamily = new PdfFontFamily("Helvetica");
             formattedText.FontSize = 24;
 
             formattedText.AppendLine("**Toplam istatistikler**");
@@ -70,7 +70,7 @@ public partial class StatsPage : ContentPage
         var dailyPage = document.Pages.Add();
         using (var formattedText = new PdfFormattedText())
         {
-            formattedText.FontFamily = new PdfFontFamily("Helvatica");
+            formattedText.FontFamily = new PdfFontFamily("Times New Roman");
             formattedText.FontSize = 24;
 
             formattedText.AppendLine("**Günlük istatistikler**");
